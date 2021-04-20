@@ -23,7 +23,7 @@ Untuk platform Android plugin ini memerlukan permission `WRITE_EXTERNAL_STORAGE`
 
 Untuk platform iOS plugin ini memerlukan permission `NSPhotoLibraryAddUsageDescription`. Oleha karena itu, kamu perlu tambahkan permission tersebut didalam file **Info.plist** seperti berikut.
 
-```plist
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -72,4 +72,4 @@ switch (result!.status) {
 ```
 
 ## Demo
-![Contoh penggunaan plugin](https://bitbucket.org/CoderJavaX/flutter-feedback-plugin/raw/35c6b39cd60ff477e64e6c1d792a84f8f5cc9987/screenshot/plugin_demo.gif)
+![Contoh penggunaan plugin](https://github.com/CoderJava/flutter-feedback-plugin/blob/master/screenshot/plugin_demo.gif)
