@@ -15,7 +15,6 @@ Untuk platform Android plugin ini memerlukan permission `WRITE_EXTERNAL_STORAGE`
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	
-	...
 </manifest>
 
 ```
@@ -71,3 +70,6 @@ switch (result!.status) {
     break;
 }
 ```
+
+## Demo
+![Contoh penggunaan plugin](https://bitbucket.org/CoderJavaX/flutter-feedback-plugin/raw/35c6b39cd60ff477e64e6c1d792a84f8f5cc9987/screenshot/plugin_demo.gif)
