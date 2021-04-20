@@ -1,6 +1,10 @@
+## 1.0.2
+
+* Perbaikan video gif yang tidak muncul di pub.dev.
+
 ## 1.0.1
 
-# Tambahkan video gif mengenai penggunaan plugin-nya.
+* Tambahkan video gif mengenai penggunaan plugin-nya.
 
 ## 1.0.0
 
