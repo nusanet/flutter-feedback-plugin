@@ -31,6 +31,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final formFeedbackController = FormFeedbackController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +46,22 @@ class _HomePageState extends State<HomePage> {
             final result = await flutterFeedback.takeScreenshot(context);
             switch (result!.status) {
               case Status.success:
-                Navigator.of(context).push(
+                Navigator.push(
+                  context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return PreviewImagePage(File(result.path!));
+                    builder: (context) {
+                      return FlutterFeedbackPluginPage(
+                        File(result.path!),
+                        (listScreenshots) async {
+                          formFeedbackController.submitFeedback();
+                          await Future.delayed(Duration(seconds: 3));
+                          formFeedbackController.successFeedback();
+
+                          // jika prosesnya gagal bisa pakai ini
+                          // formFeedbackController.failureFeedback('gagal submit feedback');
+                        },
+                        colorTitleAppBar: Colors.white,
+                      );
                     },
                   ),
                 );
@@ -77,25 +91,5 @@ class _HomePageState extends State<HomePage> {
 
   void _showSnackbBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
-  }
-}
-
-
-class PreviewImagePage extends StatelessWidget {
-  final File file;
-
-  PreviewImagePage(this.file);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Plugin Flutter Feedback')),
-      body: Center(
-        child: Image.file(
-          file,
-          fit: BoxFit.contain,
-        ),
-      ),
-    );
   }
 }
