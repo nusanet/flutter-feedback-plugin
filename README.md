@@ -39,12 +39,15 @@ Untuk platform iOS plugin ini memerlukan permission `NSPhotoLibraryAddUsageDescr
 ## Cara Pakai
 
 Untuk menggunakan plugin ini sangatlah mudah. Kamu cukup panggil saja fungsi `takeScreenshot(context)` dan cek nilai return-nya apakah outputnya sukses atau gagal.
+Contoh lengkapnya bisa kamu lihat di projek example.
 
 ```dart
 final flutterFeedback = FlutterFeedback();
 final result = await flutterFeedback.takeScreenshot(context);
 switch (result!.status) {
   case Status.success:
+    // Screenshot berhasil disimpan.
+    // Ini contoh jika mau mengarahkan ke halaman preview image hasil screenshot-nya.
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) {

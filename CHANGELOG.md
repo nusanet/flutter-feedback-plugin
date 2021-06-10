@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Fitur UI halaman feedback
+
 ## 1.0.2
 
 * Perbaikan video gif yang tidak muncul di pub.dev.
