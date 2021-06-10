@@ -12,6 +12,7 @@ import 'src/status.dart';
 import 'src/status_screenshot.dart';
 
 export 'src/status.dart';
+export 'page/form_feedback/flutter_feedback_plugin_page.dart';
 
 /// Class ini berfungsi untuk membuat fitur feedback dengan cara mengambil screenshot layar.
 class FlutterFeedback {
