@@ -510,6 +510,8 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
       _locale = EnMessage();
     } else if (widget.locale.toLowerCase() == 'id') {
       _locale = IdMessage();
+    } else {
+      _locale = EnMessage();
     }
   }
 }
