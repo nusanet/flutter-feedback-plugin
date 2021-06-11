@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                     builder: (context) {
                       return FlutterFeedbackPluginPage(
                         File(result.path!),
-                        (listScreenshots) async {
+                        (listScreenshots, category) async {
                           formFeedbackController.submitFeedback();
                           await Future.delayed(Duration(seconds: 3));
                           formFeedbackController.successFeedback();
