@@ -1,3 +1,7 @@
+## 1.1.4
+
+* Tambahkan dukungan localization dalam bahasa Inggris dan Indonesia di halaman feedback.
+
 ## 1.1.3
 
 * Hapus penggunaan bloc dan ganti menjadi `ValueListenableBuilder`
