@@ -5,6 +5,9 @@ import 'package:coderjava_image_editor_pro/coderjava_image_editor_pro.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feedback/localization/en_message.dart';
+import 'package:flutter_feedback/localization/id_message.dart';
+import 'package:flutter_feedback/localization/lookup_message.dart';
 import 'package:flutter_feedback/widget/widget_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +16,7 @@ import '../preview_image/flutter_feedback_preview_image_page.dart';
 final _valueListenableLoading = ValueNotifier<bool>(false);
 late final Color _colorPrimary;
 Function()? _onDialog401Showing;
+late final LookupMessage _locale;
 
 typedef _OnSubmitFeedback = void Function(
   List<String> listScreenshots,
@@ -48,6 +52,7 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   final Color colorAppBar;
   final Color? colorTitleAppBar;
   final Function()? onDialog401Showing;
+  final String locale;
 
   FlutterFeedbackPluginPage(
     this.fileScreenshot,
@@ -57,6 +62,7 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
     this.colorAppBar = Colors.blue,
     this.colorTitleAppBar,
     this.onDialog401Showing,
+    this.locale = 'en',
   }) {
     _colorPrimary = this.colorPrimary;
     _onDialog401Showing = this.onDialog401Showing;
@@ -81,6 +87,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
   void initState() {
     listAttachments.add(widget.fileScreenshot.path);
     listAttachments.add('');
+    _initLocale();
     super.initState();
   }
 
@@ -94,7 +101,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Feedback',
+          _locale.feedback(),
           style: TextStyle(
             color: widget.colorTitleAppBar ?? Colors.grey[700],
           ),
@@ -127,12 +134,12 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
               padding: EdgeInsets.zero,
               children: [
                 Text(
-                  'We would like your feedback to improve our app',
+                  _locale.weWouldLikeYourFeedback(),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'What is your opinion of this page?',
+                  _locale.whatIsYourOpinionOfThisPage(),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 8),
@@ -280,7 +287,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'Please select your feedback category below',
+                  _locale.pleaseSelectYourFeedbackCategoryBelow(),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 8),
@@ -289,14 +296,14 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    _buildWidgetChoiceChip('Suggestion'),
-                    _buildWidgetChoiceChip('Appreciation'),
-                    _buildWidgetChoiceChip('Complain'),
+                    _buildWidgetChoiceChip(_locale.suggestion()),
+                    _buildWidgetChoiceChip(_locale.appreciation()),
+                    _buildWidgetChoiceChip(_locale.complain()),
                   ],
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Please leave your feedback below',
+                  _locale.pleaseLeaveYourFeedback(),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 8),
@@ -320,13 +327,13 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                           Radius.circular(8),
                         ),
                       ),
-                      hintText: 'Type message here',
+                      hintText: _locale.typeMessageHere(),
                       isDense: true,
                     ),
                     maxLines: 3,
                     keyboardType: TextInputType.text,
                     validator: (value) {
-                      return value == null || value.isEmpty ? 'Enter your feedback' : null;
+                      return value == null || value.isEmpty ? _locale.enterYourFeedback() : null;
                     },
                   ),
                 ),
@@ -338,7 +345,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             child: ElevatedButton(
               onPressed: () {
                 if (selectedCategory.isEmpty) {
-                  _showSnackBar(context, 'Please select feedback category');
+                  _showSnackBar(context, _locale.pleaseSelectFeedbackCategory());
                   return;
                 } else if (formState.currentState!.validate()) {
                   widget.onSubmitFeedback.call(
@@ -358,7 +365,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                 ),
               ),
               child: Text(
-                'SEND',
+                _locale.send().toUpperCase(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -394,7 +401,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                           CupertinoActivityIndicator(),
                           SizedBox(height: 8),
                           Text(
-                            'Loading',
+                            _locale.loading(),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -429,7 +436,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
           ),
           SizedBox(height: 8),
           Text(
-            'Screenshots',
+            _locale.screenshots(),
             style: Theme.of(context).textTheme.subtitle2,
           ),
           ListTile(
@@ -437,7 +444,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
               Icons.brush,
               color: Colors.grey[700],
             ),
-            title: Text('Edit screenshot'),
+            title: Text(_locale.editScreenshot()),
             onTap: () {
               Navigator.pop(context, 'edit');
             },
@@ -447,7 +454,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
               Icons.delete,
               color: Colors.grey[700],
             ),
-            title: Text('Delete screenshot'),
+            title: Text(_locale.deleteScreenshot()),
             onTap: () {
               Navigator.pop(context, 'delete');
             },
@@ -497,6 +504,14 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
       setState(() => listAttachments[index] = resultEditImage.path);
     }
   }
+
+  void _initLocale() {
+    if (widget.locale.toLowerCase() == 'en') {
+      _locale = EnMessage();
+    } else if (widget.locale.toLowerCase() == 'id') {
+      _locale = IdMessage();
+    }
+  }
 }
 
 void _showDialog401(BuildContext context) {
@@ -505,12 +520,12 @@ void _showDialog401(BuildContext context) {
     barrierDismissible: false,
     builder: (context) {
       return WidgetDialog(
-        title: 'Info',
-        content: 'Your session has expired. Please log in again',
+        title: _locale.info(),
+        content: _locale.refreshTokenExpired(),
         actionsAlertDialog: <Widget>[
           TextButton(
             child: Text(
-              'LOGIN',
+              _locale.login().toUpperCase(),
               style: Theme.of(context).textTheme.button?.copyWith(color: _colorPrimary),
             ),
             onPressed: () async {
@@ -523,7 +538,7 @@ void _showDialog401(BuildContext context) {
         actionsCupertinoDialog: <Widget>[
           CupertinoDialogAction(
             child: Text(
-              'Login',
+              _locale.login(),
             ),
             isDefaultAction: true,
             onPressed: () async {
@@ -552,17 +567,17 @@ void _showDialogSuccess(BuildContext context) async {
       barrierDismissible: false,
       builder: (context) {
         return WidgetDialog(
-          title: 'Info',
-          content: 'Thank you for the feedback',
+          title: _locale.info(),
+          content: _locale.thankYouForTheFeedback(),
           actionsAlertDialog: [
             TextButton(
-              child: Text('OK'),
+              child: Text(_locale.ok().toUpperCase()),
               onPressed: () => Navigator.pop(context, true),
             ),
           ],
           actionsCupertinoDialog: [
             CupertinoDialogAction(
-              child: Text('Ok'),
+              child: Text(_locale.ok()),
               onPressed: () => Navigator.pop(context, true),
             ),
           ],
