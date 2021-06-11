@@ -1,3 +1,7 @@
+## 1.1.3
+
+* Hapus penggunaan bloc dan ganti menjadi `ValueListenableBuilder`
+
 ## 1.1.2
 
 * Tambahkan argumen `description` didalam callback `OnSubmitFeedback`
