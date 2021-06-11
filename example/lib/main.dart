@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                           // formFeedbackController.failureFeedback('gagal submit feedback');
                         },
                         colorTitleAppBar: Colors.white,
+                        locale: 'id',
                       );
                     },
                   ),
