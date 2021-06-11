@@ -5,14 +5,14 @@ import 'package:coderjava_image_editor_pro/coderjava_image_editor_pro.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_feedback/bloc/form_feedback/form_feedback_bloc.dart';
 import 'package:flutter_feedback/widget/widget_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../preview_image/flutter_feedback_preview_image_page.dart';
 
-final _formFeedbackBloc = FormFeedbackBloc();
+final _valueListenableLoading = ValueNotifier<bool>(false);
+late final Color _colorPrimary;
+Function()? _onDialog401Showing;
 
 typedef _OnSubmitFeedback = void Function(
   List<String> listScreenshots,
@@ -22,15 +22,21 @@ typedef _OnSubmitFeedback = void Function(
 
 class FormFeedbackController {
   void submitFeedback() {
-    _formFeedbackBloc.add(SubmitFormFeedbackEvent());
+    _valueListenableLoading.value = true;
   }
 
-  void failureFeedback(String errorMessage) {
-    _formFeedbackBloc.add(FailureFormFeedbackEvent(errorMessage: errorMessage));
+  void failureFeedback(BuildContext context, String errorMessage) {
+    _valueListenableLoading.value = false;
+    if (errorMessage.contains('401')) {
+      _showDialog401(context);
+      return;
+    }
+    _showSnackBar(context, errorMessage);
   }
 
-  void successFeedback() {
-    _formFeedbackBloc.add(SuccessFormFeedbackEvent());
+  void successFeedback(BuildContext context) {
+    _valueListenableLoading.value = false;
+    _showDialogSuccess(context);
   }
 }
 
@@ -51,7 +57,10 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
     this.colorAppBar = Colors.blue,
     this.colorTitleAppBar,
     this.onDialog401Showing,
-  });
+  }) {
+    _colorPrimary = this.colorPrimary;
+    _onDialog401Showing = this.onDialog401Showing;
+  }
 
   @override
   _FlutterFeedbackPluginPageState createState() => _FlutterFeedbackPluginPageState();
@@ -93,36 +102,11 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
         backgroundColor: widget.colorAppBar,
         iconTheme: IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
       ),
-      body: BlocProvider<FormFeedbackBloc>(
-        create: (_) => _formFeedbackBloc,
-        child: BlocListener<FormFeedbackBloc, FormFeedbackState>(
-          listener: (context, state) {
-            if (state is FailureFormFeedbackState) {
-              final errorMessage = state.errorMessage;
-              if (errorMessage.contains('401')) {
-                _showDialog401();
-                return;
-              }
-              _showSnackBar(errorMessage);
-            } else if (state is SuccessFormFeedbackState) {
-              _showDialogSuccess();
-            }
-          },
-          child: Stack(
-            children: [
-              _buildWidgetForm(),
-              _buildWidgetLoading(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showSnackBar(String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
+      body: Stack(
+        children: [
+          _buildWidgetForm(),
+          _buildWidgetLoading(),
+        ],
       ),
     );
   }
@@ -354,7 +338,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             child: ElevatedButton(
               onPressed: () {
                 if (selectedCategory.isEmpty) {
-                  _showSnackBar('Please select feedback category');
+                  _showSnackBar(context, 'Please select feedback category');
                   return;
                 } else if (formState.currentState!.validate()) {
                   widget.onSubmitFeedback.call(
@@ -387,9 +371,10 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
   }
 
   Widget _buildWidgetLoading() {
-    return BlocBuilder<FormFeedbackBloc, FormFeedbackState>(
-      builder: (context, state) {
-        if (state is LoadingFormFeedbackState) {
+    return ValueListenableBuilder(
+      valueListenable: _valueListenableLoading,
+      builder: (BuildContext context, bool isLoading, Widget? child) {
+        if (isLoading) {
           return Container(
             width: double.infinity,
             height: double.infinity,
@@ -512,70 +497,78 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
       setState(() => listAttachments[index] = resultEditImage.path);
     }
   }
+}
 
-  void _showDialog401() {
-    showDialog(
+void _showDialog401(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return WidgetDialog(
+        title: 'Info',
+        content: 'Your session has expired. Please log in again',
+        actionsAlertDialog: <Widget>[
+          TextButton(
+            child: Text(
+              'LOGIN',
+              style: Theme.of(context).textTheme.button?.copyWith(color: _colorPrimary),
+            ),
+            onPressed: () async {
+              if (_onDialog401Showing != null) {
+                _onDialog401Showing?.call();
+              }
+            },
+          ),
+        ],
+        actionsCupertinoDialog: <Widget>[
+          CupertinoDialogAction(
+            child: Text(
+              'Login',
+            ),
+            isDefaultAction: true,
+            onPressed: () async {
+              if (_onDialog401Showing != null) {
+                _onDialog401Showing?.call();
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void _showSnackBar(BuildContext context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(text),
+    ),
+  );
+}
+
+void _showDialogSuccess(BuildContext context) async {
+  final result = await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return WidgetDialog(
           title: 'Info',
-          content: 'Your session has expired. Please log in again',
-          actionsAlertDialog: <Widget>[
+          content: 'Thank you for the feedback',
+          actionsAlertDialog: [
             TextButton(
-              child: Text(
-                'LOGIN',
-                style: Theme.of(context).textTheme.button?.copyWith(color: widget.colorPrimary),
-              ),
-              onPressed: () async {
-                if (widget.onDialog401Showing != null) {
-                  widget.onDialog401Showing?.call();
-                }
-              },
+              child: Text('OK'),
+              onPressed: () => Navigator.pop(context, true),
             ),
           ],
-          actionsCupertinoDialog: <Widget>[
+          actionsCupertinoDialog: [
             CupertinoDialogAction(
-              child: Text(
-                'Login',
-              ),
-              isDefaultAction: true,
-              onPressed: () async {
-                if (widget.onDialog401Showing != null) {
-                  widget.onDialog401Showing?.call();
-                }
-              },
+              child: Text('Ok'),
+              onPressed: () => Navigator.pop(context, true),
             ),
           ],
         );
-      },
-    );
-  }
-
-  void _showDialogSuccess() async {
-    final result = await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return WidgetDialog(
-            title: 'Info',
-            content: 'Thank you for the feedback',
-            actionsAlertDialog: [
-              TextButton(
-                child: Text('OK'),
-                onPressed: () => Navigator.pop(context, true),
-              ),
-            ],
-            actionsCupertinoDialog: [
-              CupertinoDialogAction(
-                child: Text('Ok'),
-                onPressed: () => Navigator.pop(context, true),
-              ),
-            ],
-          );
-        });
-    if (result != null) {
-      Navigator.pop(context);
-    }
+      });
+  if (result != null) {
+    Navigator.pop(context);
   }
 }

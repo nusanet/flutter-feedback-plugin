@@ -18,7 +18,6 @@ dependencies:
   coderjava_image_editor_pro: ^1.0.0
   image_picker: ^0.7.4
   dotted_border: ^2.0.0
-  flutter_bloc: ^7.0.0
 
 dev_dependencies:
   flutter_test:
