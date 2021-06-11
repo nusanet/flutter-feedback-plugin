@@ -14,7 +14,7 @@ import '../preview_image/flutter_feedback_preview_image_page.dart';
 
 final _formFeedbackBloc = FormFeedbackBloc();
 
-typedef _OnSubmitFeedback = void Function(List<String> listScreenshots);
+typedef _OnSubmitFeedback = void Function(List<String> listScreenshots, String category);
 
 class FormFeedbackController {
   void submitFeedback() {
@@ -353,7 +353,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                   _showSnackBar('Please select feedback category');
                   return;
                 } else if (formState.currentState!.validate()) {
-                  widget.onSubmitFeedback.call(listAttachments);
+                  widget.onSubmitFeedback.call(listAttachments, selectedCategory);
                 }
               },
               style: ElevatedButton.styleFrom(
