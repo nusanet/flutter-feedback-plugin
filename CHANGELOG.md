@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Tambahkan argumen `description` didalam callback `OnSubmitFeedback`
+
 ## 1.1.1
 
 * Tambahkan argumen `category` didalam callback `OnSubmitFeedback`
