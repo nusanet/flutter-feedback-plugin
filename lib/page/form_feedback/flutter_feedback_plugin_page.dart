@@ -14,9 +14,9 @@ import 'package:image_picker/image_picker.dart';
 import '../preview_image/flutter_feedback_preview_image_page.dart';
 
 final _valueListenableLoading = ValueNotifier<bool>(false);
-late final Color _colorPrimary;
+late Color _colorPrimary;
 Function()? _onDialog401Showing;
-late final LookupMessage _locale;
+late LookupMessage _locale;
 
 typedef _OnSubmitFeedback = void Function(
   List<String> listScreenshots,
