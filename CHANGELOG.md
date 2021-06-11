@@ -1,3 +1,7 @@
+## 1.1.5
+
+* Buat default localization ke bahasa Inggris.
+
 ## 1.1.4
 
 * Tambahkan dukungan localization dalam bahasa Inggris dan Indonesia di halaman feedback.
