@@ -1,3 +1,7 @@
+## 1.1.6
+
+* Perbaikan ubah `late final` menjadi `final` pada variable global.
+
 ## 1.1.5
 
 * Buat default localization ke bahasa Inggris.
