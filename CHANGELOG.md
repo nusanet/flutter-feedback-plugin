@@ -1,6 +1,12 @@
+## 1.1.1
+
+* Tambahkan argumen `category` didalam callback `OnSubmitFeedback`
+
 ## 1.1.0
 
 * Fitur UI halaman feedback
+* Fitur edit foto screenshot
+* Fitur delete foto screenshot
 
 ## 1.0.2
 
