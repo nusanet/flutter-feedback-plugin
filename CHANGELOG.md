@@ -1,3 +1,7 @@
+## 1.1.7
+
+* Perbaikan permission photo library untuk iOS.
+
 ## 1.1.6
 
 * Perbaikan ubah `late final` menjadi `final` pada variable global.
