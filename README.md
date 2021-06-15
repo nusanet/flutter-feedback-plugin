@@ -21,7 +21,7 @@ Untuk platform Android plugin ini memerlukan permission `WRITE_EXTERNAL_STORAGE`
 
 ### iOS
 
-Untuk platform iOS plugin ini memerlukan permission `NSPhotoLibraryAddUsageDescription`. Oleha karena itu, kamu perlu tambahkan permission tersebut didalam file **Info.plist** seperti berikut.
+Untuk platform iOS plugin ini memerlukan permission `NSPhotoLibraryUsageDescription`. Oleha karena itu, kamu perlu tambahkan permission tersebut didalam file **Info.plist** seperti berikut.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -29,8 +29,9 @@ Untuk platform iOS plugin ini memerlukan permission `NSPhotoLibraryAddUsageDescr
 <plist version="1.0">
 <dict>
 	...
-	<key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Take pretty screenshots and save it to the PhotoLibrary.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Take pretty screenshots and save it to the PhotoLibrary.</string>
+	...
 </dict>
 </plist>
 
