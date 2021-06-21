@@ -19,9 +19,21 @@ Untuk platform Android plugin ini memerlukan permission `WRITE_EXTERNAL_STORAGE`
 
 ```
 
+Selain itu, kamu juga harus set `targetSdkVersion`-nya ke versi 29. Untuk mengubahnya silakan buka file **android/app/build.gradle** dan ubah nilai `targetSdkVersion`.
+```
+defaultConfig {
+    // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+    applicationId "id.net.nusa.plugin.flutter_feedback_example"
+    minSdkVersion 23
+    targetSdkVersion 29
+    versionCode flutterVersionCode.toInteger()
+    versionName flutterVersionName
+}
+```
+
 ### iOS
 
-Untuk platform iOS plugin ini memerlukan permission `NSPhotoLibraryUsageDescription`. Oleha karena itu, kamu perlu tambahkan permission tersebut didalam file **Info.plist** seperti berikut.
+Untuk platform iOS plugin ini memerlukan permission `NSPhotoLibraryUsageDescription`. Oleh karena itu, kamu perlu tambahkan permission tersebut didalam file **Info.plist** seperti berikut.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
