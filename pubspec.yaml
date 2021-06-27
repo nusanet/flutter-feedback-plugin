@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   permission_handler: ^8.1.1
-  native_screenshot: ^1.0.0
+  flutter_native_screenshot: ^1.1.1
   path: ^1.8.0
   path_provider: ^2.0.2
   flutter_image_compress: ^1.0.0
