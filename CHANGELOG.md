@@ -1,3 +1,7 @@
+## 2.1.0
+
+* Support untuk Android 11.
+
 ## 2.0.0
 
 * Support null safety.
