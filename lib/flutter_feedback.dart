@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:native_screenshot/native_screenshot.dart';
+import 'package:flutter_native_screenshot/flutter_native_screenshot.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart' as path;
@@ -37,16 +37,38 @@ class FlutterFeedback {
     int quality = 95,
   }) async {
     final permissionStorage = Permission.storage;
-    var permissionStorageStatus = await permissionStorage.request();
-    switch (permissionStorageStatus) {
+    final permissionPhotos = Permission.photos;
+    final permissionResult = await [permissionStorage, permissionPhotos].request();
+    final resultPermissionStorage = permissionResult[permissionStorage];
+    final resultPermissionPhotos = permissionResult[permissionPhotos];
+    debugPrint('resultPermissionStorage: $resultPermissionStorage');
+    debugPrint('resultPermissionPhotos: $resultPermissionPhotos');
+    if (resultPermissionStorage == PermissionStatus.granted && resultPermissionPhotos == PermissionStatus.granted) {
+      return _doTakeScreenshot(quality);
+    }
+
+    switch (resultPermissionStorage) {
       case PermissionStatus.denied:
         return StatusScreenshot(Status.denied);
       case PermissionStatus.granted:
-        return _doTakeScreenshot(quality);
+      case PermissionStatus.limited:
+        break;
       case PermissionStatus.restricted:
         return StatusScreenshot(Status.restricted);
+      case PermissionStatus.permanentlyDenied:
+        return StatusScreenshot(Status.permanentlyDenied);
+      default:
+        return StatusScreenshot(Status.unknown);
+    }
+
+    switch (resultPermissionPhotos) {
+      case PermissionStatus.denied:
+        return StatusScreenshot(Status.denied);
+      case PermissionStatus.granted:
       case PermissionStatus.limited:
-        return _doTakeScreenshot(quality);
+        break;
+      case PermissionStatus.restricted:
+        return StatusScreenshot(Status.restricted);
       case PermissionStatus.permanentlyDenied:
         return StatusScreenshot(Status.permanentlyDenied);
       default:
@@ -61,7 +83,7 @@ class FlutterFeedback {
   /// Dan [StatusScreenshot.path] akan berisi nilai lokasi file gambar screenshot.
   Future<StatusScreenshot?> _doTakeScreenshot(int quality) async {
     try {
-      final fileScreenshot = await NativeScreenshot.takeScreenshot();
+      final fileScreenshot = await FlutterNativeScreenshot.takeScreenshot();
       if (fileScreenshot == null) {
         return StatusScreenshot(Status.fileNotFound);
       }

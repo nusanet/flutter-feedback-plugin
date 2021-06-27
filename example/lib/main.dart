@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                       return FlutterFeedbackPluginPage(
                         File(result.path!),
                         (listScreenshots, category, description) async {
+                          // jika prosesnya berhasil
                           formFeedbackController.submitFeedback();
                           await Future.delayed(Duration(seconds: 3));
                           formFeedbackController.successFeedback(context);
