@@ -1,3 +1,7 @@
+## 2.2.1
+
+* Perbaikan set warna default untuk teks yang didalam widget `CupertinoActionSheet`.
+
 ## 2.2.0
 
 * Samakan action ketika icon edit dan foto screenshot ditekan.
