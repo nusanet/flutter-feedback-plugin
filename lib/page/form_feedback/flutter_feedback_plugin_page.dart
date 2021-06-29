@@ -385,18 +385,21 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                 CupertinoActionSheetAction(
                   child: Text(
                     _locale.viewScreenshot(),
+                    style: TextStyle(color: Colors.blue),
                   ),
                   onPressed: () => Navigator.pop(context, 'view'),
                 ),
                 CupertinoActionSheetAction(
                   child: Text(
                     _locale.editScreenshot(),
+                    style: TextStyle(color: Colors.blue),
                   ),
                   onPressed: () => Navigator.pop(context, 'edit'),
                 ),
                 CupertinoActionSheetAction(
                   child: Text(
                     _locale.deleteScreenshot(),
+                    style: TextStyle(color: Colors.red),
                   ),
                   isDestructiveAction: true,
                   onPressed: () => Navigator.pop(context, 'delete'),
