@@ -108,7 +108,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String whatIsYourOpinionOfThisPage() {
-    return 'Apa pendapatmu mengenai halaman ini?';
+    return 'Apa pendapatmu mengenai gambar ini?';
   }
 
   @override
@@ -119,5 +119,10 @@ class IdMessage implements LookupMessage {
   @override
   String viewScreenshot() {
     return 'Lihat Gambar';
+  }
+
+  @override
+  String pleaseUploadScreenshot() {
+    return 'Tolong unggah sebuah gambar untuk mendukung feedback kamu.';
   }
 }

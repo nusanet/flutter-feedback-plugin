@@ -46,4 +46,6 @@ abstract class LookupMessage {
   String typeMessageHere();
 
   String viewScreenshot();
+
+  String pleaseUploadScreenshot();
 }

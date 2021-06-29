@@ -108,7 +108,7 @@ class EnMessage implements LookupMessage {
 
   @override
   String whatIsYourOpinionOfThisPage() {
-    return 'What is your opinion of this page?';
+    return 'What is your opinion of this images?';
   }
 
   @override
@@ -119,5 +119,10 @@ class EnMessage implements LookupMessage {
   @override
   String viewScreenshot() {
     return 'View Screenshot';
+  }
+
+  @override
+  String pleaseUploadScreenshot() {
+    return 'Please provide at least one image to support your feedback';
   }
 }
