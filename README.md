@@ -2,6 +2,14 @@
 
 Plugin Flutter yang berfungsi untuk mengambil screenshot dari halaman yang sedang aktif. Plugin ini support untuk platform Android & iOS.
 
+## Fitur
+- [X] Ambil screenshot dari halaman yang sedang aktif.
+- [X] Support untuk Android & iOS.
+- [ ] Support untuk Web.
+- [X] Template halaman form feedback.
+- [X] Preview foto screenshot.
+- [X] Editor foto screenshot. Tambah teks dan garis pada foto screenshot. 
+
 ## Setup
 
 ### Android
