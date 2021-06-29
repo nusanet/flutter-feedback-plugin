@@ -115,4 +115,9 @@ class EnMessage implements LookupMessage {
   String typeMessageHere() {
     return 'Type message here';
   }
+
+  @override
+  String viewScreenshot() {
+    return 'View screenshot';
+  }
 }

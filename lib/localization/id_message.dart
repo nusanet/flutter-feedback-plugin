@@ -115,4 +115,9 @@ class IdMessage implements LookupMessage {
   String typeMessageHere() {
     return 'Masukkan tanggapanmu di sini';
   }
+
+  @override
+  String viewScreenshot() {
+    return 'Lihat gambar';
+  }
 }
