@@ -33,6 +33,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final formFeedbackController = FormFeedbackController();
 
+  var locale = 'en';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,52 +42,75 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Plugin Flutter Feedback'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            final flutterFeedback = FlutterFeedback();
-            final result = await flutterFeedback.takeScreenshot(context);
-            switch (result!.status) {
-              case Status.success:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return FlutterFeedbackPluginPage(
-                        File(result.path!),
-                        (listScreenshots, category, description) async {
-                          // jika prosesnya berhasil
-                          formFeedbackController.submitFeedback();
-                          await Future.delayed(Duration(seconds: 3));
-                          formFeedbackController.successFeedback(context);
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                final flutterFeedback = FlutterFeedback();
+                final result = await flutterFeedback.takeScreenshot(context);
+                switch (result!.status) {
+                  case Status.success:
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return FlutterFeedbackPluginPage(
+                            File(result.path!),
+                            (listScreenshots, category, description) async {
+                              // jika prosesnya berhasil
+                              formFeedbackController.submitFeedback();
+                              await Future.delayed(Duration(seconds: 3));
+                              formFeedbackController.successFeedback(context);
 
-                          // jika prosesnya gagal bisa pakai ini
-                          // formFeedbackController.failureFeedback('gagal submit feedback');
+                              // jika prosesnya gagal bisa pakai ini
+                              // formFeedbackController.failureFeedback('gagal submit feedback');
+                            },
+                            colorTitleAppBar: Colors.white,
+                            locale: locale,
+                          );
                         },
-                        colorTitleAppBar: Colors.white,
-                        locale: 'id',
-                      );
-                    },
-                  ),
-                );
-                break;
-              case Status.denied:
-                _showSnackbBar('Permission denied');
-                break;
-              case Status.restricted:
-                _showSnackbBar('Permission restricted');
-                break;
-              case Status.permanentlyDenied:
-                _showSnackbBar('Permission denied permanently');
-                break;
-              case Status.fileNotFound:
-                _showSnackbBar('File screenshot not found');
-                break;
-              case Status.unknown:
-                _showSnackbBar('Unknown');
-                break;
-            }
-          },
-          child: Text('Take Screenshot'),
+                      ),
+                    );
+                    break;
+                  case Status.denied:
+                    _showSnackbBar('Permission denied');
+                    break;
+                  case Status.restricted:
+                    _showSnackbBar('Permission restricted');
+                    break;
+                  case Status.permanentlyDenied:
+                    _showSnackbBar('Permission denied permanently');
+                    break;
+                  case Status.fileNotFound:
+                    _showSnackbBar('File screenshot not found');
+                    break;
+                  case Status.unknown:
+                    _showSnackbBar('Unknown');
+                    break;
+                }
+              },
+              child: Text('Take Screenshot'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Radio(
+                  value: 'en',
+                  groupValue: locale,
+                  onChanged: (String? value) => setState(() => locale = value ?? 'en'),
+                ),
+                Text('English'),
+                SizedBox(width: 16),
+                Radio(
+                  value: 'id',
+                  groupValue: locale,
+                  onChanged: (String? value) => setState(() => locale = value ?? 'id'),
+                ),
+                Text('Indonesia'),
+              ],
+            ),
+          ],
         ),
       ),
     );

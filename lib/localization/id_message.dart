@@ -18,7 +18,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String deleteScreenshot() {
-    return 'Hapus gambar';
+    return 'Hapus Gambar';
   }
 
   @override
@@ -28,7 +28,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String editScreenshot() {
-    return 'Edit gambar';
+    return 'Edit Gambar';
   }
 
   @override
@@ -108,11 +108,21 @@ class IdMessage implements LookupMessage {
 
   @override
   String whatIsYourOpinionOfThisPage() {
-    return 'Apa pendapatmu mengenai halaman ini?';
+    return 'Apa pendapatmu mengenai gambar ini?';
   }
 
   @override
   String typeMessageHere() {
     return 'Masukkan tanggapanmu di sini';
+  }
+
+  @override
+  String viewScreenshot() {
+    return 'Lihat Gambar';
+  }
+
+  @override
+  String pleaseUploadScreenshot() {
+    return 'Tolong unggah sebuah gambar untuk mendukung feedback kamu.';
   }
 }

@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+/// Halaman ini berfungsi untuk menampilkan gambar
 class FlutterFeedbackPreviewImagePage extends StatefulWidget {
+  /// Path local image yang akan ditampilkan
   final String? pathImage;
 
   FlutterFeedbackPreviewImagePage(this.pathImage);

@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_native_screenshot/flutter_native_screenshot.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:path/path.dart' as path;
 
 import 'src/status.dart';
 import 'src/status_screenshot.dart';
 
-export 'src/status.dart';
 export 'page/form_feedback/flutter_feedback_plugin_page.dart';
+export 'src/status.dart';
 
 /// Class ini berfungsi untuk membuat fitur feedback dengan cara mengambil screenshot layar.
 class FlutterFeedback {
@@ -41,8 +41,6 @@ class FlutterFeedback {
     final permissionResult = await [permissionStorage, permissionPhotos].request();
     final resultPermissionStorage = permissionResult[permissionStorage];
     final resultPermissionPhotos = permissionResult[permissionPhotos];
-    debugPrint('resultPermissionStorage: $resultPermissionStorage');
-    debugPrint('resultPermissionPhotos: $resultPermissionPhotos');
     if (resultPermissionStorage == PermissionStatus.granted && resultPermissionPhotos == PermissionStatus.granted) {
       return _doTakeScreenshot(quality);
     }
