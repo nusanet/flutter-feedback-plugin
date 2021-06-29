@@ -205,12 +205,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                                   padding: const EdgeInsets.all(8),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => FlutterFeedbackPreviewImagePage(pathImage),
-                                        ),
-                                      );
+                                      _doTapImage(index, pathImage);
                                     },
                                     child: Container(
                                       height: 128,
@@ -234,34 +229,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                                   right: 2,
                                   child: GestureDetector(
                                     onTap: () async {
-                                      if (index == 0) {
-                                        _doEditImage(index);
-                                        return;
-                                      }
-                                      final editDeleteAttachment = await showModalBottomSheet<String>(
-                                        context: context,
-                                        enableDrag: false,
-                                        builder: (context) {
-                                          return _buildWidgetEditDeleteAttachment();
-                                        },
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(16),
-                                            topRight: Radius.circular(16),
-                                          ),
-                                        ),
-                                      );
-                                      if (editDeleteAttachment != null) {
-                                        if (editDeleteAttachment == 'edit') {
-                                          _doEditImage(index);
-                                        } else if (editDeleteAttachment == 'delete') {
-                                          listAttachments.removeAt(index);
-                                          if (listAttachments.last.isNotEmpty) {
-                                            listAttachments.add('');
-                                          }
-                                          setState(() {});
-                                        }
-                                      }
+                                      _doTapImage(index, pathImage);
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -377,6 +345,37 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
     );
   }
 
+  void _doTapImage(int index, String pathImage) async {
+    if (index == 0) {
+      _doEditImage(index);
+      return;
+    }
+    final editDeleteAttachment = await showModalBottomSheet<String>(
+      context: context,
+      enableDrag: false,
+      builder: (context) {
+        return _buildWidgetEditDeleteAttachment(pathImage);
+      },
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+    );
+    if (editDeleteAttachment != null) {
+      if (editDeleteAttachment == 'edit') {
+        _doEditImage(index);
+      } else if (editDeleteAttachment == 'delete') {
+        listAttachments.removeAt(index);
+        if (listAttachments.last.isNotEmpty) {
+          listAttachments.add('');
+        }
+        setState(() {});
+      }
+    }
+  }
+
   Widget _buildWidgetLoading() {
     return ValueListenableBuilder(
       valueListenable: _valueListenableLoading,
@@ -417,7 +416,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
     );
   }
 
-  Widget _buildWidgetEditDeleteAttachment() {
+  Widget _buildWidgetEditDeleteAttachment(String pathImage) {
     return Padding(
       padding: EdgeInsets.only(
         top: 8,
@@ -438,6 +437,21 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
           Text(
             _locale.screenshots(),
             style: Theme.of(context).textTheme.subtitle2,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.photo,
+              color: Colors.grey[700],
+            ),
+            title: Text(_locale.viewScreenshot()),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FlutterFeedbackPreviewImagePage(pathImage),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: Icon(
