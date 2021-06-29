@@ -41,8 +41,6 @@ class FlutterFeedback {
     final permissionResult = await [permissionStorage, permissionPhotos].request();
     final resultPermissionStorage = permissionResult[permissionStorage];
     final resultPermissionPhotos = permissionResult[permissionPhotos];
-    debugPrint('resultPermissionStorage: $resultPermissionStorage');
-    debugPrint('resultPermissionPhotos: $resultPermissionPhotos');
     if (resultPermissionStorage == PermissionStatus.granted && resultPermissionPhotos == PermissionStatus.granted) {
       return _doTakeScreenshot(quality);
     }
