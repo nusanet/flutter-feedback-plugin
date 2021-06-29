@@ -18,7 +18,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String deleteScreenshot() {
-    return 'Hapus gambar';
+    return 'Hapus Gambar';
   }
 
   @override
@@ -28,7 +28,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String editScreenshot() {
-    return 'Edit gambar';
+    return 'Edit Gambar';
   }
 
   @override
@@ -118,6 +118,6 @@ class IdMessage implements LookupMessage {
 
   @override
   String viewScreenshot() {
-    return 'Lihat gambar';
+    return 'Lihat Gambar';
   }
 }
