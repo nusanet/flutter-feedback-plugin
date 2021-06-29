@@ -1,3 +1,9 @@
+## 2.2.0
+
+* Samakan action ketika icon edit dan foto screenshot ditekan.
+* Adaptive design untuk menu modal bottom sheet.
+* Foto screenshot bawaan plugin bisa dihapus.
+
 ## 2.1.0
 
 * Support untuk Android 11.
