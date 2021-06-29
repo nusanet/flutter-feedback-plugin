@@ -13,22 +13,32 @@ import 'package:image_picker/image_picker.dart';
 
 import '../preview_image/flutter_feedback_preview_image_page.dart';
 
+/// Listener untuk menampilkan loading atau tidak
 final _valueListenableLoading = ValueNotifier<bool>(false);
+
+/// Warna primary dari identitas app Anda
 late Color _colorPrimary;
+
+/// Callback function ketika respon kode dari API adalah 401
 Function()? _onDialog401Showing;
+
+/// Localization untuk bahasa yang digunakan di halaman ini
 late LookupMessage _locale;
 
+/// Alias function ketika button `SEND` ditekan
 typedef _OnSubmitFeedback = void Function(
   List<String> listScreenshots,
   String category,
   String description,
 );
 
+/// Halaman ini berfungsi untuk menampilkan form feedback.
 class FormFeedbackController {
   void submitFeedback() {
     _valueListenableLoading.value = true;
   }
 
+  /// Action ketika gagal kirim feedback
   void failureFeedback(BuildContext context, String errorMessage) {
     _valueListenableLoading.value = false;
     if (errorMessage.contains('401')) {
@@ -38,6 +48,7 @@ class FormFeedbackController {
     _showSnackBar(context, errorMessage);
   }
 
+  /// Action ketika berhasil kirim feedback
   void successFeedback(BuildContext context) {
     _valueListenableLoading.value = false;
     _showDialogSuccess(context);
@@ -45,13 +56,28 @@ class FormFeedbackController {
 }
 
 class FlutterFeedbackPluginPage extends StatefulWidget {
+  /// Hasil file screenshot
   final File fileScreenshot;
+
+  /// Callback ketika button `SEND` ditekan
   final _OnSubmitFeedback onSubmitFeedback;
+
+  /// Warna primary dari identitas app Anda.
   final Color colorPrimary;
+
+  /// Warna secondary dari identitas app Anda.
   final Color colorSecondary;
+
+  /// Warna dari widget [AppBar]. Nilai default-nya [Colors.blue]
   final Color colorAppBar;
+
+  /// Warna dari tulisan didalam widget [AppBar]. Nilai default-nya adalah [Colors.grey.shade700]
   final Color? colorTitleAppBar;
+
+  /// Function yang dijalankan ketika respon kode dari API 401.
   final Function()? onDialog401Showing;
+
+  /// Bahasa yang dipakai di halaman ini. Untuk saat ini support `en` dan `id`.
   final String locale;
 
   FlutterFeedbackPluginPage(
@@ -312,7 +338,10 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                if (selectedCategory.isEmpty) {
+                if (listAttachments.length == 1 && listAttachments.first.isEmpty) {
+                  _showSnackBar(context, _locale.pleaseUploadScreenshot());
+                  return;
+                } else if (selectedCategory.isEmpty) {
                   _showSnackBar(context, _locale.pleaseSelectFeedbackCategory());
                   return;
                 } else if (formState.currentState!.validate()) {
@@ -346,10 +375,6 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
   }
 
   void _doTapImage(int index, String pathImage) async {
-    if (index == 0) {
-      _doEditImage(index);
-      return;
-    }
     var actionAttachment;
     if (Platform.isIOS) {
       actionAttachment = await showCupertinoModalPopup<String>(
