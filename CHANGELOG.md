@@ -1,3 +1,7 @@
+## 2.2.2
+
+* Migrasikan repository ke organisasi /nusanet.
+
 ## 2.2.1
 
 * Perbaikan set warna default untuk teks yang didalam widget `CupertinoActionSheet`.
