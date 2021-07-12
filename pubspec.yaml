@@ -18,6 +18,8 @@ dependencies:
   coderjava_image_editor_pro: ^2.0.0
   image_picker: ^0.8.0+3
   dotted_border: ^2.0.0
+  font_awesome_flutter: ^9.1.0
+  device_info_plus: ^2.1.0
 
 dev_dependencies:
   flutter_test:
