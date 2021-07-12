@@ -33,6 +33,7 @@ typedef _OnSubmitFeedback = void Function(
   List<String> listScreenshots,
   String category,
   String description,
+  DeviceLogs deviceLogs,
 );
 
 /// Halaman ini berfungsi untuk menampilkan form feedback.
@@ -474,6 +475,18 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                     listAttachments,
                     selectedCategory,
                     controllerFeedback.text.trim(),
+                    DeviceLogs(
+                      email: widget.email,
+                      isCheckEmail: isCheckEmail,
+                      appVersion: widget.appVersion,
+                      isCheckAppVersion: isCheckAppVersion,
+                      platform: platform,
+                      isCheckPlatform: isCheckPlatform,
+                      osVersion: osVersion,
+                      isCheckOsVersion: isCheckOsVersion,
+                      brand: brand,
+                      isCheckBrand: isCheckBrand,
+                    ),
                   );
                 }
               },
