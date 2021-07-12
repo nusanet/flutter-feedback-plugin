@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                             fileScreenshot: File(result.path!),
                             email: 'kolonel.yudisetiawan@gmail.com',
                             appVersion: '1.0.0',
-                            onSubmitFeedback: (listScreenshots, category, description) async {
+                            onSubmitFeedback: (listScreenshots, category, description, deviceLogs) async {
                               // jika prosesnya berhasil
                               formFeedbackController.submitFeedback();
                               await Future.delayed(Duration(seconds: 3));
