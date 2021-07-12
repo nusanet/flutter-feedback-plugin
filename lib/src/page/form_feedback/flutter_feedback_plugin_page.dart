@@ -1,14 +1,17 @@
 import 'dart:io';
 
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:coderjava_image_editor_pro/coderjava_image_editor_pro.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feedback/localization/en_message.dart';
 import 'package:flutter_feedback/localization/id_message.dart';
 import 'package:flutter_feedback/localization/lookup_message.dart';
-import 'package:flutter_feedback/widget/widget_dialog.dart';
+import 'package:flutter_feedback/src/data/model/device_logs/device_logs.dart';
+import 'package:flutter_feedback/src/widget/widget_dialog.dart';
+import 'package:flutter_feedback/src/widget/widget_edit_device_logs.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../preview_image/flutter_feedback_preview_image_page.dart';
@@ -62,6 +65,12 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Callback ketika button `SEND` ditekan
   final _OnSubmitFeedback onSubmitFeedback;
 
+  /// Email user yang sedang login
+  final String email;
+
+  /// Nilai version name dari app
+  final String appVersion;
+
   /// Warna primary dari identitas app Anda.
   final Color colorPrimary;
 
@@ -80,9 +89,11 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Bahasa yang dipakai di halaman ini. Untuk saat ini support `en` dan `id`.
   final String locale;
 
-  FlutterFeedbackPluginPage(
-    this.fileScreenshot,
-    this.onSubmitFeedback, {
+  FlutterFeedbackPluginPage({
+    required this.fileScreenshot,
+    required this.onSubmitFeedback,
+    required this.email,
+    required this.appVersion,
     this.colorPrimary = Colors.blue,
     this.colorSecondary = Colors.white,
     this.colorAppBar = Colors.blue,
@@ -108,12 +119,37 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
   var paddingBottom = 0.0;
   var paddingTop = 0.0;
   var heightScreen = 0.0;
+  var platform = '';
+  var osVersion = '';
+  var brand = '';
+  var isCheckEmail = true;
+  var isCheckAppVersion = true;
+  var isCheckPlatform = true;
+  var isCheckOsVersion = true;
+  var isCheckBrand = true;
 
   @override
   void initState() {
     listAttachments.add(widget.fileScreenshot.path);
     listAttachments.add('');
     _initLocale();
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      final deviceInfoPlugin = DeviceInfoPlugin();
+      if (Platform.isAndroid) {
+        final androidInfo = await deviceInfoPlugin.androidInfo;
+        platform = 'Android';
+        osVersion = androidInfo.version.sdkInt.toString();
+        brand = (androidInfo.brand ?? '') + ' ' + (androidInfo.model ?? '');
+        if (brand.trim().isEmpty) {
+          brand = '-';
+        }
+      } else if (Platform.isIOS) {
+        final iosInfo = await deviceInfoPlugin.iosInfo;
+        platform = 'IOS';
+        osVersion = iosInfo.systemVersion ?? '-';
+        brand = (iosInfo.model ?? '-') + ' (' + (iosInfo.name ?? '-') + ')';
+      }
+    });
     super.initState();
   }
 
@@ -279,6 +315,95 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 8),
+                InkWell(
+                  onTap: () async {
+                    var editDeviceLogs = await showModalBottomSheet<DeviceLogs>(
+                        context: context,
+                        enableDrag: false,
+                        isDismissible: false,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                        ),
+                        builder: (context) {
+                          return WidgetEditDeviceLogs(
+                            locale: _locale,
+                            paddingBottom: paddingBottom,
+                            deviceLogs: DeviceLogs(
+                              email: widget.email,
+                              isCheckEmail: isCheckEmail,
+                              appVersion: widget.appVersion,
+                              isCheckAppVersion: isCheckAppVersion,
+                              platform: platform,
+                              isCheckPlatform: isCheckPlatform,
+                              osVersion: osVersion,
+                              isCheckOsVersion: isCheckOsVersion,
+                              brand: brand,
+                              isCheckBrand: isCheckBrand,
+                            ),
+                            colorPrimary: widget.colorPrimary,
+                          );
+                        });
+                    if (editDeviceLogs != null) {
+                      setState(() {
+                        isCheckEmail = editDeviceLogs.isCheckEmail;
+                        isCheckAppVersion = editDeviceLogs.isCheckAppVersion;
+                        isCheckPlatform = editDeviceLogs.isCheckPlatform;
+                        isCheckOsVersion = editDeviceLogs.isCheckOsVersion;
+                        isCheckBrand = editDeviceLogs.isCheckBrand;
+                      });
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                _locale.deviceLogs(),
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                              Text(
+                                _setDataDeviceLogs(),
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      color: Colors.grey,
+                                    ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                _locale.edit(),
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      color: widget.colorPrimary,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(
+                          FontAwesomeIcons.fileAlt,
+                          color: Colors.grey[700],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(height: 16),
                 Text(
                   _locale.pleaseSelectYourFeedbackCategoryBelow(),
@@ -372,6 +497,39 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
         ],
       ),
     );
+  }
+
+  String _setDataDeviceLogs() {
+    final listDeviceLogs = <String>[];
+    var strDeviceLogs = '';
+    if (isCheckEmail) {
+      listDeviceLogs.add(_locale.email());
+    }
+    if (isCheckAppVersion) {
+      listDeviceLogs.add(_locale.appVersion());
+    }
+    if (isCheckPlatform) {
+      listDeviceLogs.add(_locale.platform());
+    }
+    if (isCheckOsVersion) {
+      listDeviceLogs.add(_locale.osVersion());
+    }
+    if (isCheckBrand) {
+      listDeviceLogs.add(_locale.brand());
+    }
+    if (listDeviceLogs.isEmpty) {
+      strDeviceLogs = _locale.noLogData();
+      return strDeviceLogs;
+    } else if (listDeviceLogs.length == 1) {
+      strDeviceLogs = listDeviceLogs.first;
+      return strDeviceLogs;
+    } else if (listDeviceLogs.length == 2) {
+      strDeviceLogs = listDeviceLogs.join(' ' + _locale.and() + ' ');
+      return strDeviceLogs;
+    }
+    listDeviceLogs.insert(listDeviceLogs.length - 1, _locale.and());
+    strDeviceLogs = listDeviceLogs.join(', ').replaceAll(_locale.and() + ',', _locale.and());
+    return strDeviceLogs;
   }
 
   void _doTapImage(int index, String pathImage) async {

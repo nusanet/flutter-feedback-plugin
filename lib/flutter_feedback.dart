@@ -8,11 +8,11 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'src/status.dart';
-import 'src/status_screenshot.dart';
+import 'src/data/enum/status.dart';
+import 'src/data/model/status_screenshot/status_screenshot.dart';
 
-export 'page/form_feedback/flutter_feedback_plugin_page.dart';
-export 'src/status.dart';
+export 'src/data/enum/status.dart';
+export 'src/page/form_feedback/flutter_feedback_plugin_page.dart';
 
 /// Class ini berfungsi untuk membuat fitur feedback dengan cara mengambil screenshot layar.
 class FlutterFeedback {
