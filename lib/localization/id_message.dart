@@ -125,4 +125,54 @@ class IdMessage implements LookupMessage {
   String pleaseUploadScreenshot() {
     return 'Tolong unggah sebuah gambar untuk mendukung feedback kamu.';
   }
+
+  @override
+  String appVersion() {
+    return 'Versi Aplikasi';
+  }
+
+  @override
+  String brand() {
+    return 'Merk HP';
+  }
+
+  @override
+  String cancel() {
+    return 'Batal';
+  }
+
+  @override
+  String deviceLogs() {
+    return 'Log Perangkat';
+  }
+
+  @override
+  String email() {
+    return 'Email';
+  }
+
+  @override
+  String osVersion() {
+    return 'Versi OS';
+  }
+
+  @override
+  String platform() {
+    return 'Platform';
+  }
+
+  @override
+  String save() {
+    return 'Save';
+  }
+
+  @override
+  String noLogData() {
+    return 'Tidak ada data log yang akan dikirim';
+  }
+
+  @override
+  String and() {
+    return 'dan';
+  }
 }

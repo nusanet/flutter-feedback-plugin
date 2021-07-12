@@ -1,4 +1,4 @@
-import 'status.dart';
+import 'package:flutter_feedback/src/data/enum/status.dart';
 
 class StatusScreenshot {
   final Status status;

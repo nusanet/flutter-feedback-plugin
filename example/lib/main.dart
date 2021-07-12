@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_feedback/flutter_feedback.dart';
 
 void main() {
@@ -56,8 +55,10 @@ class _HomePageState extends State<HomePage> {
                       MaterialPageRoute(
                         builder: (context) {
                           return FlutterFeedbackPluginPage(
-                            File(result.path!),
-                            (listScreenshots, category, description) async {
+                            fileScreenshot: File(result.path!),
+                            email: 'kolonel.yudisetiawan@gmail.com',
+                            appVersion: '1.0.0',
+                            onSubmitFeedback: (listScreenshots, category, description) async {
                               // jika prosesnya berhasil
                               formFeedbackController.submitFeedback();
                               await Future.delayed(Duration(seconds: 3));
@@ -66,7 +67,10 @@ class _HomePageState extends State<HomePage> {
                               // jika prosesnya gagal bisa pakai ini
                               // formFeedbackController.failureFeedback('gagal submit feedback');
                             },
+                            colorPrimary: Colors.blue,
+                            colorSecondary: Colors.blue,
                             colorTitleAppBar: Colors.white,
+                            colorAppBar: Colors.blue,
                             locale: locale,
                           );
                         },

@@ -48,4 +48,24 @@ abstract class LookupMessage {
   String viewScreenshot();
 
   String pleaseUploadScreenshot();
+
+  String deviceLogs();
+
+  String email();
+
+  String appVersion();
+
+  String platform();
+
+  String osVersion();
+
+  String brand();
+
+  String cancel();
+
+  String save();
+
+  String noLogData();
+
+  String and();
 }

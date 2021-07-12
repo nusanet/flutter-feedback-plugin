@@ -125,4 +125,54 @@ class EnMessage implements LookupMessage {
   String pleaseUploadScreenshot() {
     return 'Please provide at least one image to support your feedback';
   }
+
+  @override
+  String appVersion() {
+    return 'App Version';
+  }
+
+  @override
+  String brand() {
+    return 'Brand';
+  }
+
+  @override
+  String cancel() {
+    return 'Cancel';
+  }
+
+  @override
+  String deviceLogs() {
+    return 'Device Logs';
+  }
+
+  @override
+  String email() {
+    return 'Email';
+  }
+
+  @override
+  String osVersion() {
+    return 'OS Version';
+  }
+
+  @override
+  String platform() {
+    return 'Platform';
+  }
+
+  @override
+  String save() {
+    return 'Save';
+  }
+
+  @override
+  String noLogData() {
+    return 'No log data will be sent';
+  }
+
+  @override
+  String and() {
+    return 'and';
+  }
 }
