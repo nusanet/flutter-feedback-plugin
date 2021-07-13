@@ -1,3 +1,8 @@
+## 2.3.0
+
+* Tampilkan info device logs di form feedback.
+* Buat fitur check/uncheck info device logs
+
 ## 2.2.2
 
 * Migrasikan repository ke organisasi /nusanet.
