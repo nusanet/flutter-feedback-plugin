@@ -1,3 +1,7 @@
+## 2.3.1
+
+* Perbaikan hasil edit foto screenshot yang tampak menu editornya.
+
 ## 2.3.0
 
 * Tampilkan info device logs di form feedback.
