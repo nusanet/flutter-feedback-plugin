@@ -227,7 +227,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               padding: const EdgeInsets.all(8),
                               child: GestureDetector(
                                 onTap: () async {
-                                  final pickedImageGallery = await ImagePicker().getImage(
+                                  final pickedImageGallery = await ImagePicker().pickImage(
                                     source: ImageSource.gallery,
                                     imageQuality: 30,
                                   );
