@@ -16,7 +16,7 @@ dependencies:
   path_provider: ^2.0.2
   flutter_image_compress: ^1.0.0
   coderjava_image_editor_pro: ^2.0.2
-  image_picker: ^0.8.0+3
+  image_picker: ^0.8.2
   dotted_border: ^2.0.0
   font_awesome_flutter: ^9.1.0
   device_info_plus: ^2.1.0
