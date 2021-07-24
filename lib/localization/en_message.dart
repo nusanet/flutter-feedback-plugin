@@ -143,7 +143,7 @@ class EnMessage implements LookupMessage {
 
   @override
   String deviceLogs() {
-    return 'Device Logs';
+    return 'Send Device Info';
   }
 
   @override
