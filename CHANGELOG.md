@@ -1,3 +1,8 @@
+## 2.3.2
+
+* Ubah label `Device Logs` menjadi `Send Device Info`.
+* Update dependency `image_picker` ke versi 0.8.2.
+
 ## 2.3.1
 
 * Perbaikan hasil edit foto screenshot yang tampak menu editornya.
