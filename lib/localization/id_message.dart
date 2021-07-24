@@ -143,7 +143,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String deviceLogs() {
-    return 'Log Perangkat';
+    return 'Kirim Info Perangkat';
   }
 
   @override
