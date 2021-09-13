@@ -1,3 +1,7 @@
+## 2.4.0
+
+* Update plugin `coderjava_image_editor_pro` ke versi 2.1.0.
+
 ## 2.3.2
 
 * Ubah label `Device Logs` menjadi `Send Device Info`.
