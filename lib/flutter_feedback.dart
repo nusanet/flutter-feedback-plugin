@@ -12,6 +12,7 @@ import 'src/data/enum/status.dart';
 import 'src/data/model/status_screenshot/status_screenshot.dart';
 
 export 'src/data/enum/status.dart';
+export 'src/data/model/device_logs/device_logs.dart';
 export 'src/page/form_feedback/flutter_feedback_plugin_page.dart';
 
 /// Class ini berfungsi untuk membuat fitur feedback dengan cara mengambil screenshot layar.
