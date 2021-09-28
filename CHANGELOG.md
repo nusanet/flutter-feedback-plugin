@@ -1,3 +1,7 @@
+## 2.5.0
+
+* Export class model `DeviceLogs`.
+
 ## 2.4.0
 
 * Update plugin `coderjava_image_editor_pro` ke versi 2.1.0.
