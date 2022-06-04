@@ -1,3 +1,7 @@
+## 3.0.0
+
+* Migrate to Flutter 3.
+
 ## 2.5.0
 
 * Export class model `DeviceLogs`.
