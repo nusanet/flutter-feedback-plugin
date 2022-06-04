@@ -73,6 +73,8 @@ class FlutterFeedback {
       default:
         return StatusScreenshot(Status.unknown);
     }
+
+    return StatusScreenshot(Status.unknown);
   }
 
   /// Function ini berfungsi untuk mengambil screenshot dari layar yang sedang aktif.
