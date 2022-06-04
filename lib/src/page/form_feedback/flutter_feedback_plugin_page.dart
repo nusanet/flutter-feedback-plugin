@@ -134,7 +134,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
     listAttachments.add(widget.fileScreenshot.path);
     listAttachments.add('');
     _initLocale();
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final deviceInfoPlugin = DeviceInfoPlugin();
       if (Platform.isAndroid) {
         final androidInfo = await deviceInfoPlugin.androidInfo;
