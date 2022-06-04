@@ -58,7 +58,8 @@ class _HomePageState extends State<HomePage> {
                             fileScreenshot: File(result.path!),
                             email: 'kolonel.yudisetiawan@gmail.com',
                             appVersion: '1.0.0',
-                            onSubmitFeedback: (listScreenshots, category, description, deviceLogs) async {
+                            onSubmitFeedback: (listScreenshots, category,
+                                description, deviceLogs) async {
                               // jika prosesnya berhasil
                               formFeedbackController.submitFeedback();
                               await Future.delayed(Duration(seconds: 3));
@@ -102,14 +103,16 @@ class _HomePageState extends State<HomePage> {
                 Radio(
                   value: 'en',
                   groupValue: locale,
-                  onChanged: (String? value) => setState(() => locale = value ?? 'en'),
+                  onChanged: (String? value) =>
+                      setState(() => locale = value ?? 'en'),
                 ),
                 Text('English'),
                 SizedBox(width: 16),
                 Radio(
                   value: 'id',
                   groupValue: locale,
-                  onChanged: (String? value) => setState(() => locale = value ?? 'id'),
+                  onChanged: (String? value) =>
+                      setState(() => locale = value ?? 'id'),
                 ),
                 Text('Indonesia'),
               ],
@@ -121,6 +124,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showSnackbBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 }

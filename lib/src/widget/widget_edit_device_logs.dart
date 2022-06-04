@@ -76,7 +76,8 @@ class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
             isCheckAppVersion,
             widget.locale.appVersion(),
             widget.deviceLogs.appVersion,
-            (isChecked) => setState(() => isCheckAppVersion = !isCheckAppVersion),
+            (isChecked) =>
+                setState(() => isCheckAppVersion = !isCheckAppVersion),
           ),
           _buildItemDeviceLog(
             isCheckPlatform,

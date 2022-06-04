@@ -39,10 +39,12 @@ class FlutterFeedback {
   }) async {
     final permissionStorage = Permission.storage;
     final permissionPhotos = Permission.photos;
-    final permissionResult = await [permissionStorage, permissionPhotos].request();
+    final permissionResult =
+        await [permissionStorage, permissionPhotos].request();
     final resultPermissionStorage = permissionResult[permissionStorage];
     final resultPermissionPhotos = permissionResult[permissionPhotos];
-    if (resultPermissionStorage == PermissionStatus.granted && resultPermissionPhotos == PermissionStatus.granted) {
+    if (resultPermissionStorage == PermissionStatus.granted &&
+        resultPermissionPhotos == PermissionStatus.granted) {
       return _doTakeScreenshot(quality);
     }
 
@@ -90,12 +92,14 @@ class FlutterFeedback {
       }
       final tempDirectory = await getTemporaryDirectory();
       final targetPath = path.join(tempDirectory.path, '${DateTime.now()}.jpg');
-      final fileScreenshotCompress = await FlutterImageCompress.compressAndGetFile(
+      final fileScreenshotCompress =
+          await FlutterImageCompress.compressAndGetFile(
         fileScreenshot,
         targetPath,
         quality: quality,
       );
-      return StatusScreenshot(Status.success, path: fileScreenshotCompress?.path);
+      return StatusScreenshot(Status.success,
+          path: fileScreenshotCompress?.path);
     } on PlatformException catch (error) {
       throw error;
     }

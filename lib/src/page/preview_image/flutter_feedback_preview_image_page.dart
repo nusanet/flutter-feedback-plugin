@@ -10,10 +10,12 @@ class FlutterFeedbackPreviewImagePage extends StatefulWidget {
   FlutterFeedbackPreviewImagePage(this.pathImage);
 
   @override
-  _FlutterFeedbackPreviewImagePageState createState() => _FlutterFeedbackPreviewImagePageState();
+  _FlutterFeedbackPreviewImagePageState createState() =>
+      _FlutterFeedbackPreviewImagePageState();
 }
 
-class _FlutterFeedbackPreviewImagePageState extends State<FlutterFeedbackPreviewImagePage> {
+class _FlutterFeedbackPreviewImagePageState
+    extends State<FlutterFeedbackPreviewImagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

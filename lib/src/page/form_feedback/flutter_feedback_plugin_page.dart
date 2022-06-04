@@ -107,7 +107,8 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   }
 
   @override
-  _FlutterFeedbackPluginPageState createState() => _FlutterFeedbackPluginPageState();
+  _FlutterFeedbackPluginPageState createState() =>
+      _FlutterFeedbackPluginPageState();
 }
 
 class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
@@ -170,7 +171,8 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
           ),
         ),
         backgroundColor: widget.colorAppBar,
-        iconTheme: IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
+        iconTheme:
+            IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
       ),
       body: Stack(
         children: [
@@ -227,13 +229,15 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               padding: const EdgeInsets.all(8),
                               child: GestureDetector(
                                 onTap: () async {
-                                  final pickedImageGallery = await ImagePicker().pickImage(
+                                  final pickedImageGallery =
+                                      await ImagePicker().pickImage(
                                     source: ImageSource.gallery,
                                     imageQuality: 30,
                                   );
                                   if (pickedImageGallery != null) {
                                     listAttachments.removeLast();
-                                    listAttachments.add(pickedImageGallery.path);
+                                    listAttachments
+                                        .add(pickedImageGallery.path);
                                     listAttachments.add('');
                                     if (listAttachments.length > 3) {
                                       listAttachments.removeLast();
@@ -382,7 +386,10 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               ),
                               Text(
                                 _setDataDeviceLogs(),
-                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(
                                       color: Colors.grey,
                                     ),
                                 maxLines: 2,
@@ -390,7 +397,10 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               ),
                               Text(
                                 _locale.edit(),
-                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(
                                       color: widget.colorPrimary,
                                     ),
                               ),
@@ -398,7 +408,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                           ),
                         ),
                         Icon(
-                          FontAwesomeIcons.fileAlt,
+                          FontAwesomeIcons.fileLines,
                           color: Colors.grey[700],
                         ),
                       ],
@@ -453,7 +463,9 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                     maxLines: 3,
                     keyboardType: TextInputType.text,
                     validator: (value) {
-                      return value == null || value.isEmpty ? _locale.enterYourFeedback() : null;
+                      return value == null || value.isEmpty
+                          ? _locale.enterYourFeedback()
+                          : null;
                     },
                   ),
                 ),
@@ -464,11 +476,13 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                if (listAttachments.length == 1 && listAttachments.first.isEmpty) {
+                if (listAttachments.length == 1 &&
+                    listAttachments.first.isEmpty) {
                   _showSnackBar(context, _locale.pleaseUploadScreenshot());
                   return;
                 } else if (selectedCategory.isEmpty) {
-                  _showSnackBar(context, _locale.pleaseSelectFeedbackCategory());
+                  _showSnackBar(
+                      context, _locale.pleaseSelectFeedbackCategory());
                   return;
                 } else if (formState.currentState!.validate()) {
                   widget.onSubmitFeedback.call(
@@ -541,7 +555,9 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
       return strDeviceLogs;
     }
     listDeviceLogs.insert(listDeviceLogs.length - 1, _locale.and());
-    strDeviceLogs = listDeviceLogs.join(', ').replaceAll(_locale.and() + ',', _locale.and());
+    strDeviceLogs = listDeviceLogs
+        .join(', ')
+        .replaceAll(_locale.and() + ',', _locale.and());
     return strDeviceLogs;
   }
 
@@ -774,7 +790,10 @@ void _showDialog401(BuildContext context) {
           TextButton(
             child: Text(
               _locale.login().toUpperCase(),
-              style: Theme.of(context).textTheme.button?.copyWith(color: _colorPrimary),
+              style: Theme.of(context)
+                  .textTheme
+                  .button
+                  ?.copyWith(color: _colorPrimary),
             ),
             onPressed: () async {
               if (_onDialog401Showing != null) {
