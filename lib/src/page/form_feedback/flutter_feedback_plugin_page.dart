@@ -81,6 +81,9 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Warna dari widget [AppBar]. Nilai default-nya [Colors.blue]
   final Color colorAppBar;
 
+  /// List action yang didalam [AppBar].
+  final List<Widget>? actionAppBar;
+
   /// Warna dari tulisan didalam widget [AppBar]. Nilai default-nya adalah [Colors.grey.shade700]
   final Color? colorTitleAppBar;
 
@@ -90,6 +93,9 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Bahasa yang dipakai di halaman ini. Untuk saat ini support `en` dan `id`.
   final String locale;
 
+  /// Widget yang digunakan sebagai button send.
+  final Widget? buttonSend;
+
   FlutterFeedbackPluginPage({
     required this.fileScreenshot,
     required this.onSubmitFeedback,
@@ -98,9 +104,12 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
     this.colorPrimary = Colors.blue,
     this.colorSecondary = Colors.white,
     this.colorAppBar = Colors.blue,
+    this.actionAppBar,
     this.colorTitleAppBar,
     this.onDialog401Showing,
     this.locale = 'en',
+    this.buttonSend,
+
   }) {
     _colorPrimary = this.colorPrimary;
     _onDialog401Showing = this.onDialog401Showing;
@@ -170,6 +179,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             color: widget.colorTitleAppBar ?? Colors.grey[700],
           ),
         ),
+        actions: widget.actionAppBar,
         backgroundColor: widget.colorAppBar,
         iconTheme:
             IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
@@ -474,7 +484,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
           ),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: widget.buttonSend ?? ElevatedButton(
               onPressed: () {
                 if (listAttachments.length == 1 &&
                     listAttachments.first.isEmpty) {
