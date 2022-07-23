@@ -93,8 +93,14 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Bahasa yang dipakai di halaman ini. Untuk saat ini support `en` dan `id`.
   final String locale;
 
-  /// Widget yang digunakan sebagai button send.
-  final Widget? buttonSend;
+  /// Style dari button send.
+  final ButtonStyle? buttonSendStyle;
+
+  /// Child dari button send.
+  final Widget? childButtonSend;
+
+  /// Height dari button send.
+  final double? heightButtonSend;
 
   FlutterFeedbackPluginPage({
     required this.fileScreenshot,
@@ -108,8 +114,9 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
     this.colorTitleAppBar,
     this.onDialog401Showing,
     this.locale = 'en',
-    this.buttonSend,
-
+    this.buttonSendStyle,
+    this.childButtonSend,
+    this.heightButtonSend,
   }) {
     _colorPrimary = this.colorPrimary;
     _onDialog401Showing = this.onDialog401Showing;
@@ -484,7 +491,8 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
           ),
           SizedBox(
             width: double.infinity,
-            child: widget.buttonSend ?? ElevatedButton(
+            height: widget.heightButtonSend,
+            child: ElevatedButton(
               onPressed: () {
                 if (listAttachments.length == 1 &&
                     listAttachments.first.isEmpty) {
@@ -514,7 +522,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(
+              style: widget.buttonSendStyle ?? ElevatedButton.styleFrom(
                 primary: widget.colorPrimary,
                 onPrimary: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -523,7 +531,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                   ),
                 ),
               ),
-              child: Text(
+              child: widget.childButtonSend ?? Text(
                 _locale.send().toUpperCase(),
                 style: TextStyle(
                   color: Colors.white,
