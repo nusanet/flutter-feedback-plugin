@@ -1,3 +1,7 @@
+## 3.1.1
+
+* Remove parameter `buttonSend` and replace it with `buttonSendStyle`, `childButtonSend`, and `heightButtonSend`.
+
 ## 3.1.0
 
 * Add parameter `actionAppBar` and `buttonSend` in constructor `FlutterFeedbackPluginPage`.
