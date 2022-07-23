@@ -1,3 +1,7 @@
+## 3.1.0
+
+* Add parameter `actionAppBar` and `buttonSend` in constructor `FlutterFeedbackPluginPage`.
+
 ## 3.0.1
 
 * Run `flutter pub upgrade`.
