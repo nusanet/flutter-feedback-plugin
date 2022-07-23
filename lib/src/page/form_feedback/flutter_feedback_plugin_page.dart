@@ -522,21 +522,23 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                   );
                 }
               },
-              style: widget.buttonSendStyle ?? ElevatedButton.styleFrom(
-                primary: widget.colorPrimary,
-                onPrimary: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(4),
+              style: widget.buttonSendStyle ??
+                  ElevatedButton.styleFrom(
+                    primary: widget.colorPrimary,
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              child: widget.childButtonSend ?? Text(
-                _locale.send().toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+              child: widget.childButtonSend ??
+                  Text(
+                    _locale.send().toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
             ),
           ),
         ],
