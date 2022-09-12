@@ -43,13 +43,25 @@ class FormFeedbackController {
   }
 
   /// Action ketika gagal kirim feedback
-  void failureFeedback(BuildContext context, String errorMessage) {
+  void failureFeedback(
+    BuildContext context,
+    String errorMessage, {
+    SnackBarBehavior? snackBarBehavior,
+    EdgeInsetsGeometry? snackBarMargin,
+    Color? snackbarBackgroundColor,
+  }) {
     _valueListenableLoading.value = false;
     if (errorMessage.contains('401')) {
       _showDialog401(context);
       return;
     }
-    _showSnackBar(context, errorMessage);
+    _showSnackBar(
+      context,
+      errorMessage,
+      snackBarBehavior: snackBarBehavior,
+      snackbarBackgroundColor: snackbarBackgroundColor,
+      snackBarMargin: snackBarMargin,
+    );
   }
 
   /// Action ketika berhasil kirim feedback
@@ -102,6 +114,15 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Height dari button send.
   final double? heightButtonSend;
 
+  // Warna background di SnackBar
+  final Color? snackBarErrorBackgroundColor;
+
+  // Behavior snackbar
+  final SnackBarBehavior? snackbarBehavior;
+
+  // Margin untuk snackbar
+  final EdgeInsetsGeometry? snackbarMargin;
+
   FlutterFeedbackPluginPage({
     required this.fileScreenshot,
     required this.onSubmitFeedback,
@@ -117,14 +138,16 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
     this.buttonSendStyle,
     this.childButtonSend,
     this.heightButtonSend,
+    this.snackBarErrorBackgroundColor,
+    this.snackbarBehavior,
+    this.snackbarMargin,
   }) {
     _colorPrimary = this.colorPrimary;
     _onDialog401Showing = this.onDialog401Showing;
   }
 
   @override
-  _FlutterFeedbackPluginPageState createState() =>
-      _FlutterFeedbackPluginPageState();
+  _FlutterFeedbackPluginPageState createState() => _FlutterFeedbackPluginPageState();
 }
 
 class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
@@ -188,8 +211,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
         ),
         actions: widget.actionAppBar,
         backgroundColor: widget.colorAppBar,
-        iconTheme:
-            IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
+        iconTheme: IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
       ),
       body: Stack(
         children: [
@@ -246,15 +268,13 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               padding: const EdgeInsets.all(8),
                               child: GestureDetector(
                                 onTap: () async {
-                                  final pickedImageGallery =
-                                      await ImagePicker().pickImage(
+                                  final pickedImageGallery = await ImagePicker().pickImage(
                                     source: ImageSource.gallery,
                                     imageQuality: 30,
                                   );
                                   if (pickedImageGallery != null) {
                                     listAttachments.removeLast();
-                                    listAttachments
-                                        .add(pickedImageGallery.path);
+                                    listAttachments.add(pickedImageGallery.path);
                                     listAttachments.add('');
                                     if (listAttachments.length > 3) {
                                       listAttachments.removeLast();
@@ -403,10 +423,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               ),
                               Text(
                                 _setDataDeviceLogs(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                       color: Colors.grey,
                                     ),
                                 maxLines: 2,
@@ -414,10 +431,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               ),
                               Text(
                                 _locale.edit(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                       color: widget.colorPrimary,
                                     ),
                               ),
@@ -480,9 +494,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                     maxLines: 3,
                     keyboardType: TextInputType.text,
                     validator: (value) {
-                      return value == null || value.isEmpty
-                          ? _locale.enterYourFeedback()
-                          : null;
+                      return value == null || value.isEmpty ? _locale.enterYourFeedback() : null;
                     },
                   ),
                 ),
@@ -494,13 +506,23 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             height: widget.heightButtonSend,
             child: ElevatedButton(
               onPressed: () {
-                if (listAttachments.length == 1 &&
-                    listAttachments.first.isEmpty) {
-                  _showSnackBar(context, _locale.pleaseUploadScreenshot());
+                if (listAttachments.length == 1 && listAttachments.first.isEmpty) {
+                  _showSnackBar(
+                    context,
+                    _locale.pleaseUploadScreenshot(),
+                    snackBarBehavior: widget.snackbarBehavior,
+                    snackbarBackgroundColor: widget.snackBarErrorBackgroundColor,
+                    snackBarMargin: widget.snackbarMargin,
+                  );
                   return;
                 } else if (selectedCategory.isEmpty) {
                   _showSnackBar(
-                      context, _locale.pleaseSelectFeedbackCategory());
+                    context,
+                    _locale.pleaseSelectFeedbackCategory(),
+                    snackBarBehavior: widget.snackbarBehavior,
+                    snackbarBackgroundColor: widget.snackBarErrorBackgroundColor,
+                    snackBarMargin: widget.snackbarMargin,
+                  );
                   return;
                 } else if (formState.currentState!.validate()) {
                   widget.onSubmitFeedback.call(
@@ -575,9 +597,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
       return strDeviceLogs;
     }
     listDeviceLogs.insert(listDeviceLogs.length - 1, _locale.and());
-    strDeviceLogs = listDeviceLogs
-        .join(', ')
-        .replaceAll(_locale.and() + ',', _locale.and());
+    strDeviceLogs = listDeviceLogs.join(', ').replaceAll(_locale.and() + ',', _locale.and());
     return strDeviceLogs;
   }
 
@@ -810,10 +830,7 @@ void _showDialog401(BuildContext context) {
           TextButton(
             child: Text(
               _locale.login().toUpperCase(),
-              style: Theme.of(context)
-                  .textTheme
-                  .button
-                  ?.copyWith(color: _colorPrimary),
+              style: Theme.of(context).textTheme.button?.copyWith(color: _colorPrimary),
             ),
             onPressed: () async {
               if (_onDialog401Showing != null) {
@@ -840,10 +857,19 @@ void _showDialog401(BuildContext context) {
   );
 }
 
-void _showSnackBar(BuildContext context, String text) {
+void _showSnackBar(
+  BuildContext context,
+  String text, {
+  SnackBarBehavior? snackBarBehavior,
+  EdgeInsetsGeometry? snackBarMargin,
+  Color? snackbarBackgroundColor,
+}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(text),
+      behavior: snackBarBehavior,
+      margin: snackBarMargin,
+      backgroundColor: snackbarBackgroundColor,
     ),
   );
 }
