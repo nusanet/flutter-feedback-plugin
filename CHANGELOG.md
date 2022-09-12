@@ -1,3 +1,7 @@
+## 3.2.0
+
+* Add parameter `snackBarBehavior`, `snackBarMargin`, and `snackBarBackgroundColor` in `failureFeedback` function.
+
 ## 3.1.1
 
 * Remove parameter `buttonSend` and replace it with `buttonSendStyle`, `childButtonSend`, and `heightButtonSend`.
