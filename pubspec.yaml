@@ -1,6 +1,6 @@
 name: flutter_feedback
 description: Flutter plugin untuk mengambil screenshot dari sebuah halaman yang sedang aktif. Support untuk Android & iOS.
-version: 3.1.1
+version: 3.2.0
 repository: https://github.com/nusanet/flutter-feedback-plugin.git
 
 environment:
