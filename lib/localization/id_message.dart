@@ -98,7 +98,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String thankYouForTheFeedback() {
-    return 'Terimakasih atas masukkannya ya';
+    return 'Terimakasih atas masukannya ya';
   }
 
   @override
