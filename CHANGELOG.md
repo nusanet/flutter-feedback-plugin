@@ -1,3 +1,7 @@
+## 3.2.1
+
+* Fix typo localization Indonesia.
+
 ## 3.2.0
 
 * Add parameter `snackBarBehavior`, `snackBarMargin`, and `snackBarBackgroundColor` in `failureFeedback` function.
