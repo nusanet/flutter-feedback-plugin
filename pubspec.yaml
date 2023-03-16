@@ -10,20 +10,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  permission_handler: ^9.2.0
   flutter_native_screenshot: ^1.1.1
   path: ^1.8.0
   path_provider: ^2.0.2
   flutter_image_compress: ^1.0.0
-  coderjava_image_editor_pro: ^3.0.1
+  coderjava_image_editor_pro: ^3.0.2
   image_picker: ^0.8.2
   dotted_border: ^2.0.0
   font_awesome_flutter: ^10.1.0
   device_info_plus: ^4.0.1
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
