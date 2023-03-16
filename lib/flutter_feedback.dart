@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,45 +38,66 @@ class FlutterFeedback {
     BuildContext context, {
     int quality = 95,
   }) async {
-    final permissionStorage = Permission.storage;
-    final permissionPhotos = Permission.photos;
-    final permissionResult =
-        await [permissionStorage, permissionPhotos].request();
-    final resultPermissionStorage = permissionResult[permissionStorage];
-    final resultPermissionPhotos = permissionResult[permissionPhotos];
-    if (resultPermissionStorage == PermissionStatus.granted &&
-        resultPermissionPhotos == PermissionStatus.granted) {
-      return _doTakeScreenshot(quality);
-    }
+    if (Platform.isIOS) {
+      final permissionStorage = Permission.storage;
+      final permissionPhotos = Permission.photos;
+      final permissionResult =
+          await [permissionStorage, permissionPhotos].request();
+      final resultPermissionStorage = permissionResult[permissionStorage];
+      final resultPermissionPhotos = permissionResult[permissionPhotos];
+      if (resultPermissionStorage == PermissionStatus.granted &&
+          resultPermissionPhotos == PermissionStatus.granted) {
+        return _doTakeScreenshot(quality);
+      }
 
-    switch (resultPermissionStorage) {
-      case PermissionStatus.denied:
-        return StatusScreenshot(Status.denied);
-      case PermissionStatus.granted:
-      case PermissionStatus.limited:
-        break;
-      case PermissionStatus.restricted:
-        return StatusScreenshot(Status.restricted);
-      case PermissionStatus.permanentlyDenied:
-        return StatusScreenshot(Status.permanentlyDenied);
-      default:
-        return StatusScreenshot(Status.unknown);
-    }
+      switch (resultPermissionStorage) {
+        case PermissionStatus.denied:
+          return StatusScreenshot(Status.denied);
+        case PermissionStatus.granted:
+        case PermissionStatus.limited:
+          break;
+        case PermissionStatus.restricted:
+          return StatusScreenshot(Status.restricted);
+        case PermissionStatus.permanentlyDenied:
+          return StatusScreenshot(Status.permanentlyDenied);
+        default:
+          return StatusScreenshot(Status.unknown);
+      }
 
-    switch (resultPermissionPhotos) {
-      case PermissionStatus.denied:
-        return StatusScreenshot(Status.denied);
-      case PermissionStatus.granted:
-      case PermissionStatus.limited:
-        break;
-      case PermissionStatus.restricted:
-        return StatusScreenshot(Status.restricted);
-      case PermissionStatus.permanentlyDenied:
-        return StatusScreenshot(Status.permanentlyDenied);
-      default:
-        return StatusScreenshot(Status.unknown);
-    }
+      switch (resultPermissionPhotos) {
+        case PermissionStatus.denied:
+          return StatusScreenshot(Status.denied);
+        case PermissionStatus.granted:
+        case PermissionStatus.limited:
+          return _doTakeScreenshot(quality);
+        case PermissionStatus.restricted:
+          return StatusScreenshot(Status.restricted);
+        case PermissionStatus.permanentlyDenied:
+          return StatusScreenshot(Status.permanentlyDenied);
+        default:
+          return StatusScreenshot(Status.unknown);
+      }
+    } else if (Platform.isAndroid) {
+      final resultPermissionStorage = await Permission.storage.request();
+      if (resultPermissionStorage == PermissionStatus.granted) {
+        return _doTakeScreenshot(quality);
+      }
 
+      switch (resultPermissionStorage) {
+        case PermissionStatus.denied:
+          return StatusScreenshot(Status.denied);
+        case PermissionStatus.granted:
+        case PermissionStatus.limited:
+          /* Nothing to do in here */
+          break;
+        case PermissionStatus.restricted:
+          return StatusScreenshot(Status.restricted);
+        case PermissionStatus.permanentlyDenied:
+          return StatusScreenshot(Status.permanentlyDenied);
+        default:
+          return StatusScreenshot(Status.unknown);
+      }
+    }
     return StatusScreenshot(Status.unknown);
   }
 
