@@ -1,3 +1,9 @@
+## 3.3.0
+
+This release contains the following **breaking changes**:
+* Change parameter `email` to be `username`.
+* Added parameter `labelUsername`. This parameter is used to show label above `username`.
+
 ## 3.2.1
 
 * Fix typo localization Indonesia.
