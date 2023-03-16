@@ -1,6 +1,7 @@
 class DeviceLogs {
-  final String email;
-  final bool isCheckEmail;
+  final String username;
+  final String labelUsername;
+  final bool isCheckUsername;
   final String appVersion;
   final bool isCheckAppVersion;
   final String platform;
@@ -11,8 +12,9 @@ class DeviceLogs {
   final bool isCheckBrand;
 
   DeviceLogs({
-    required this.email,
-    required this.isCheckEmail,
+    required this.username,
+    required this.labelUsername,
+    required this.isCheckUsername,
     required this.appVersion,
     required this.isCheckAppVersion,
     required this.platform,
@@ -25,8 +27,9 @@ class DeviceLogs {
 
   @override
   String toString() {
-    return 'DeviceLogs{email: $email, isCheckEmail: $isCheckEmail, appVersion: $appVersion, '
-        'isCheckAppVersion: $isCheckAppVersion, platform: $platform, isCheckPlatform: $isCheckPlatform, '
-        'osVersion: $osVersion, isCheckOsVersion: $isCheckOsVersion, brand: $brand, isCheckBrand: $isCheckBrand}';
+    return 'DeviceLogs{username: $username, labelUsername: $labelUsername, isCheckUsername: $isCheckUsername, '
+        'appVersion: $appVersion, isCheckAppVersion: $isCheckAppVersion, platform: $platform, '
+        'isCheckPlatform: $isCheckPlatform, osVersion: $osVersion, isCheckOsVersion: $isCheckOsVersion, '
+        'brand: $brand, isCheckBrand: $isCheckBrand}';
   }
 }

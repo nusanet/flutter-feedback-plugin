@@ -78,8 +78,11 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Callback ketika button `SEND` ditekan
   final _OnSubmitFeedback onSubmitFeedback;
 
-  /// Email user yang sedang login
-  final String email;
+  /// Username yang sedang login
+  final String username;
+
+  /// Label username
+  final String labelUsername;
 
   /// Nilai version name dari app
   final String appVersion;
@@ -126,7 +129,8 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   FlutterFeedbackPluginPage({
     required this.fileScreenshot,
     required this.onSubmitFeedback,
-    required this.email,
+    required this.username,
+    required this.labelUsername,
     required this.appVersion,
     this.colorPrimary = Colors.blue,
     this.colorSecondary = Colors.white,
@@ -147,7 +151,8 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   }
 
   @override
-  _FlutterFeedbackPluginPageState createState() => _FlutterFeedbackPluginPageState();
+  _FlutterFeedbackPluginPageState createState() =>
+      _FlutterFeedbackPluginPageState();
 }
 
 class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
@@ -163,7 +168,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
   var platform = '';
   var osVersion = '';
   var brand = '';
-  var isCheckEmail = true;
+  var isCheckUsername = true;
   var isCheckAppVersion = true;
   var isCheckPlatform = true;
   var isCheckOsVersion = true;
@@ -211,7 +216,8 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
         ),
         actions: widget.actionAppBar,
         backgroundColor: widget.colorAppBar,
-        iconTheme: IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
+        iconTheme:
+            IconThemeData(color: widget.colorTitleAppBar ?? Colors.grey[700]),
       ),
       body: Stack(
         children: [
@@ -268,13 +274,15 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               padding: const EdgeInsets.all(8),
                               child: GestureDetector(
                                 onTap: () async {
-                                  final pickedImageGallery = await ImagePicker().pickImage(
+                                  final pickedImageGallery =
+                                      await ImagePicker().pickImage(
                                     source: ImageSource.gallery,
                                     imageQuality: 30,
                                   );
                                   if (pickedImageGallery != null) {
                                     listAttachments.removeLast();
-                                    listAttachments.add(pickedImageGallery.path);
+                                    listAttachments
+                                        .add(pickedImageGallery.path);
                                     listAttachments.add('');
                                     if (listAttachments.length > 3) {
                                       listAttachments.removeLast();
@@ -375,8 +383,9 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                             locale: _locale,
                             paddingBottom: paddingBottom,
                             deviceLogs: DeviceLogs(
-                              email: widget.email,
-                              isCheckEmail: isCheckEmail,
+                              username: widget.username,
+                              labelUsername: widget.labelUsername,
+                              isCheckUsername: isCheckUsername,
                               appVersion: widget.appVersion,
                               isCheckAppVersion: isCheckAppVersion,
                               platform: platform,
@@ -391,7 +400,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                         });
                     if (editDeviceLogs != null) {
                       setState(() {
-                        isCheckEmail = editDeviceLogs.isCheckEmail;
+                        isCheckUsername = editDeviceLogs.isCheckUsername;
                         isCheckAppVersion = editDeviceLogs.isCheckAppVersion;
                         isCheckPlatform = editDeviceLogs.isCheckPlatform;
                         isCheckOsVersion = editDeviceLogs.isCheckOsVersion;
@@ -419,11 +428,14 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                             children: [
                               Text(
                                 _locale.deviceLogs(),
-                                style: Theme.of(context).textTheme.subtitle2,
+                                style: Theme.of(context).textTheme.titleSmall,
                               ),
                               Text(
                                 _setDataDeviceLogs(),
-                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       color: Colors.grey,
                                     ),
                                 maxLines: 2,
@@ -431,7 +443,10 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               ),
                               Text(
                                 _locale.edit(),
-                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       color: widget.colorPrimary,
                                     ),
                               ),
@@ -494,7 +509,9 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                     maxLines: 3,
                     keyboardType: TextInputType.text,
                     validator: (value) {
-                      return value == null || value.isEmpty ? _locale.enterYourFeedback() : null;
+                      return value == null || value.isEmpty
+                          ? _locale.enterYourFeedback()
+                          : null;
                     },
                   ),
                 ),
@@ -506,12 +523,14 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             height: widget.heightButtonSend,
             child: ElevatedButton(
               onPressed: () {
-                if (listAttachments.length == 1 && listAttachments.first.isEmpty) {
+                if (listAttachments.length == 1 &&
+                    listAttachments.first.isEmpty) {
                   _showSnackBar(
                     context,
                     _locale.pleaseUploadScreenshot(),
                     snackBarBehavior: widget.snackbarBehavior,
-                    snackbarBackgroundColor: widget.snackBarErrorBackgroundColor,
+                    snackbarBackgroundColor:
+                        widget.snackBarErrorBackgroundColor,
                     snackBarMargin: widget.snackbarMargin,
                   );
                   return;
@@ -520,7 +539,8 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                     context,
                     _locale.pleaseSelectFeedbackCategory(),
                     snackBarBehavior: widget.snackbarBehavior,
-                    snackbarBackgroundColor: widget.snackBarErrorBackgroundColor,
+                    snackbarBackgroundColor:
+                        widget.snackBarErrorBackgroundColor,
                     snackBarMargin: widget.snackbarMargin,
                   );
                   return;
@@ -530,8 +550,9 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                     selectedCategory,
                     controllerFeedback.text.trim(),
                     DeviceLogs(
-                      email: widget.email,
-                      isCheckEmail: isCheckEmail,
+                      username: widget.username,
+                      labelUsername: widget.labelUsername,
+                      isCheckUsername: isCheckUsername,
                       appVersion: widget.appVersion,
                       isCheckAppVersion: isCheckAppVersion,
                       platform: platform,
@@ -546,8 +567,8 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
               },
               style: widget.buttonSendStyle ??
                   ElevatedButton.styleFrom(
-                    primary: widget.colorPrimary,
-                    onPrimary: Colors.white,
+                    foregroundColor: Colors.white,
+                    backgroundColor: widget.colorPrimary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(4),
@@ -571,8 +592,8 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
   String _setDataDeviceLogs() {
     final listDeviceLogs = <String>[];
     var strDeviceLogs = '';
-    if (isCheckEmail) {
-      listDeviceLogs.add(_locale.email());
+    if (isCheckUsername) {
+      listDeviceLogs.add(widget.labelUsername);
     }
     if (isCheckAppVersion) {
       listDeviceLogs.add(_locale.appVersion());
@@ -597,7 +618,9 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
       return strDeviceLogs;
     }
     listDeviceLogs.insert(listDeviceLogs.length - 1, _locale.and());
-    strDeviceLogs = listDeviceLogs.join(', ').replaceAll(_locale.and() + ',', _locale.and());
+    strDeviceLogs = listDeviceLogs
+        .join(', ')
+        .replaceAll(_locale.and() + ',', _locale.and());
     return strDeviceLogs;
   }
 
@@ -729,7 +752,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
           SizedBox(height: 8),
           Text(
             _locale.screenshots(),
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           ListTile(
             leading: Icon(
@@ -770,7 +793,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
     final isSelected = label == selectedCategory;
     return ChoiceChip(
       label: Text(label),
-      labelStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
+      labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: isSelected ? widget.colorPrimary : Colors.grey,
           ),
       selected: isSelected,
@@ -830,7 +853,10 @@ void _showDialog401(BuildContext context) {
           TextButton(
             child: Text(
               _locale.login().toUpperCase(),
-              style: Theme.of(context).textTheme.button?.copyWith(color: _colorPrimary),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelLarge
+                  ?.copyWith(color: _colorPrimary),
             ),
             onPressed: () async {
               if (_onDialog401Showing != null) {

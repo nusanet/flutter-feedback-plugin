@@ -20,7 +20,7 @@ class WidgetEditDeviceLogs extends StatefulWidget {
 }
 
 class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
-  var isCheckEmail = false;
+  var isCheckUsername = false;
   var isCheckAppVersion = false;
   var isCheckPlatform = false;
   var isCheckOsVersion = false;
@@ -28,7 +28,7 @@ class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
 
   @override
   void initState() {
-    isCheckEmail = widget.deviceLogs.isCheckEmail;
+    isCheckUsername = widget.deviceLogs.isCheckUsername;
     isCheckAppVersion = widget.deviceLogs.isCheckAppVersion;
     isCheckPlatform = widget.deviceLogs.isCheckPlatform;
     isCheckOsVersion = widget.deviceLogs.isCheckOsVersion;
@@ -64,13 +64,13 @@ class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
           SizedBox(height: 8),
           Text(
             widget.locale.deviceLogs(),
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           _buildItemDeviceLog(
-            isCheckEmail,
-            widget.locale.email(),
-            widget.deviceLogs.email,
-            (isChecked) => setState(() => isCheckEmail = !isCheckEmail),
+            isCheckUsername,
+            widget.deviceLogs.labelUsername,
+            widget.deviceLogs.username,
+            (isChecked) => setState(() => isCheckUsername = !isCheckUsername),
           ),
           _buildItemDeviceLog(
             isCheckAppVersion,
@@ -105,8 +105,8 @@ class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
                   child: ElevatedButton(
                     child: Text(widget.locale.cancel().toUpperCase()),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: widget.colorPrimary,
+                      foregroundColor: widget.colorPrimary,
+                      backgroundColor: Colors.white,
                       side: BorderSide(
                         color: widget.colorPrimary,
                       ),
@@ -121,14 +121,15 @@ class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
                   child: ElevatedButton(
                     child: Text(widget.locale.save().toUpperCase()),
                     style: ElevatedButton.styleFrom(
-                      primary: widget.colorPrimary,
+                      backgroundColor: widget.colorPrimary,
                     ),
                     onPressed: () {
                       Navigator.pop(
                         context,
                         DeviceLogs(
-                          email: widget.deviceLogs.email,
-                          isCheckEmail: isCheckEmail,
+                          username: widget.deviceLogs.username,
+                          labelUsername: widget.deviceLogs.labelUsername,
+                          isCheckUsername: isCheckUsername,
                           appVersion: widget.deviceLogs.appVersion,
                           isCheckAppVersion: isCheckAppVersion,
                           platform: widget.deviceLogs.platform,
@@ -175,7 +176,7 @@ class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
                 Text(label),
                 Text(
                   value,
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.grey,
                       ),
                   maxLines: 2,
