@@ -43,5 +43,9 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Take pretty screenshots and save it to the PhotoLibrary.</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

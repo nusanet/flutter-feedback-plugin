@@ -56,7 +56,9 @@ class _HomePageState extends State<HomePage> {
                         builder: (context) {
                           return FlutterFeedbackPluginPage(
                             fileScreenshot: File(result.path!),
-                            email: 'kolonel.yudisetiawan@gmail.com',
+                            username: '085361118156',
+                            labelUsername:
+                                locale == 'en' ? 'Phone Number' : 'Nomor HP',
                             appVersion: '1.0.0',
                             onSubmitFeedback: (listScreenshots, category,
                                 description, deviceLogs) async {
