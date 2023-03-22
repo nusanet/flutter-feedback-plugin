@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -78,24 +79,49 @@ class FlutterFeedback {
           return StatusScreenshot(Status.unknown);
       }
     } else if (Platform.isAndroid) {
-      final resultPermissionStorage = await Permission.storage.request();
-      if (resultPermissionStorage == PermissionStatus.granted) {
-        return _doTakeScreenshot(quality);
-      }
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      final osVersion = androidInfo.version.sdkInt;
+      if (osVersion != null && osVersion >= 33) {
+        // khusus Android 13 (API 33) menggunakan permission photos
+        final resultPermissionPhotos = await Permission.photos.request();
+        if (resultPermissionPhotos == PermissionStatus.granted) {
+          return _doTakeScreenshot(quality);
+        }
 
-      switch (resultPermissionStorage) {
-        case PermissionStatus.denied:
-          return StatusScreenshot(Status.denied);
-        case PermissionStatus.granted:
-        case PermissionStatus.limited:
-          /* Nothing to do in here */
-          break;
-        case PermissionStatus.restricted:
-          return StatusScreenshot(Status.restricted);
-        case PermissionStatus.permanentlyDenied:
-          return StatusScreenshot(Status.permanentlyDenied);
-        default:
-          return StatusScreenshot(Status.unknown);
+        switch (resultPermissionPhotos) {
+          case PermissionStatus.denied:
+            return StatusScreenshot(Status.denied);
+          case PermissionStatus.granted:
+          case PermissionStatus.limited:
+            /* Nothing to do in here */
+            break;
+          case PermissionStatus.restricted:
+            return StatusScreenshot(Status.restricted);
+          case PermissionStatus.permanentlyDenied:
+            return StatusScreenshot(Status.permanentlyDenied);
+          default:
+            return StatusScreenshot(Status.unknown);
+        }
+      } else {
+        final resultPermissionStorage = await Permission.storage.request();
+        if (resultPermissionStorage == PermissionStatus.granted) {
+          return _doTakeScreenshot(quality);
+        }
+
+        switch (resultPermissionStorage) {
+          case PermissionStatus.denied:
+            return StatusScreenshot(Status.denied);
+          case PermissionStatus.granted:
+          case PermissionStatus.limited:
+            /* Nothing to do in here */
+            break;
+          case PermissionStatus.restricted:
+            return StatusScreenshot(Status.restricted);
+          case PermissionStatus.permanentlyDenied:
+            return StatusScreenshot(Status.permanentlyDenied);
+          default:
+            return StatusScreenshot(Status.unknown);
+        }
       }
     }
     return StatusScreenshot(Status.unknown);
