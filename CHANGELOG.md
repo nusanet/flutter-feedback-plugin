@@ -1,3 +1,7 @@
+## 3.4.0
+
+* Added support for Android 13.
+
 ## 3.3.0
 
 This release contains the following **breaking changes**:
