@@ -1,3 +1,7 @@
+## 3.4.1
+
+* Update dependency `coderjava_image_editor_pro` & `device_info_plus`.
+
 ## 3.4.0
 
 * Added support for Android 13.
