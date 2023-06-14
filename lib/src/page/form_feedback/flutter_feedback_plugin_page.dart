@@ -185,15 +185,15 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
         final androidInfo = await deviceInfoPlugin.androidInfo;
         platform = 'Android';
         osVersion = androidInfo.version.sdkInt.toString();
-        brand = (androidInfo.brand ?? '') + ' ' + (androidInfo.model ?? '');
+        brand = (androidInfo.brand) + ' ' + (androidInfo.model);
         if (brand.trim().isEmpty) {
           brand = '-';
         }
       } else if (Platform.isIOS) {
         final iosInfo = await deviceInfoPlugin.iosInfo;
         platform = 'IOS';
-        osVersion = iosInfo.systemVersion ?? '-';
-        brand = (iosInfo.model ?? '-') + ' (' + (iosInfo.name ?? '-') + ')';
+        osVersion = iosInfo.systemVersion;
+        brand = (iosInfo.model) + ' (' + (iosInfo.name) + ')';
       }
     });
     super.initState();

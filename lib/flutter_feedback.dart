@@ -81,7 +81,7 @@ class FlutterFeedback {
     } else if (Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
       final osVersion = androidInfo.version.sdkInt;
-      if (osVersion != null && osVersion >= 33) {
+      if (osVersion >= 33) {
         // khusus Android 13 (API 33) menggunakan permission photos
         final resultPermissionPhotos = await Permission.photos.request();
         if (resultPermissionPhotos == PermissionStatus.granted) {
