@@ -1,3 +1,7 @@
+## 3.4.3
+
+* Update kotlin gradle plugin version.
+
 ## 3.4.2
 
 * Update dependencies.
