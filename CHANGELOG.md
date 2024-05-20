@@ -1,3 +1,7 @@
+## 3.5.0
+
+* Add parameter `headerWidgets`. This 
+
 ## 3.4.3
 
 * Update kotlin gradle plugin version.
