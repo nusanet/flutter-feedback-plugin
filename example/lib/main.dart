@@ -75,6 +75,9 @@ class _HomePageState extends State<HomePage> {
                             colorTitleAppBar: Colors.white,
                             colorAppBar: Colors.blue,
                             locale: locale,
+                            headerWidgets: [
+                              Text('ini header widget'),
+                            ],
                           );
                         },
                       ),
