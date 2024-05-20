@@ -117,14 +117,17 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
   /// Height dari button send.
   final double? heightButtonSend;
 
-  // Warna background di SnackBar
+  /// Warna background di SnackBar
   final Color? snackBarErrorBackgroundColor;
 
-  // Behavior snackbar
+  /// Behavior snackbar
   final SnackBarBehavior? snackbarBehavior;
 
-  // Margin untuk snackbar
+  /// Margin untuk snackbar
   final EdgeInsetsGeometry? snackbarMargin;
+
+  /// Widget untuk ditempatkan paling atas di form nya
+  final List<Widget>? headerWidgets;
 
   FlutterFeedbackPluginPage({
     required this.fileScreenshot,
@@ -145,6 +148,7 @@ class FlutterFeedbackPluginPage extends StatefulWidget {
     this.snackBarErrorBackgroundColor,
     this.snackbarBehavior,
     this.snackbarMargin,
+    this.headerWidgets,
   }) {
     _colorPrimary = this.colorPrimary;
     _onDialog401Showing = this.onDialog401Showing;
@@ -243,6 +247,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
+                ...widget.headerWidgets ?? [],
                 Text(
                   _locale.weWouldLikeYourFeedback(),
                   textAlign: TextAlign.center,
