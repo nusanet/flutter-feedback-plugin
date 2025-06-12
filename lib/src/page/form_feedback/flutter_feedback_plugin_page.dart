@@ -279,20 +279,116 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                               padding: const EdgeInsets.all(8),
                               child: GestureDetector(
                                 onTap: () async {
-                                  final pickedImageGallery =
-                                      await ImagePicker().pickImage(
-                                    source: ImageSource.gallery,
-                                    imageQuality: 30,
-                                  );
-                                  if (pickedImageGallery != null) {
-                                    listAttachments.removeLast();
-                                    listAttachments
-                                        .add(pickedImageGallery.path);
-                                    listAttachments.add('');
-                                    if (listAttachments.length > 3) {
-                                      listAttachments.removeLast();
+                                  final chooseAddAttachment =
+                                      await showModalBottomSheet(
+                                    context: context,
+                                    enableDrag: false,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16),
+                                      ),
+                                    ),
+                                    builder: (context) {
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(16),
+                                            topRight: Radius.circular(16),
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.only(
+                                          top: 8,
+                                          bottom: paddingBottom > 0
+                                              ? paddingBottom
+                                              : 8,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              width: 24,
+                                              height: 2,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey,
+                                                borderRadius:
+                                                    BorderRadius.circular(999),
+                                              ),
+                                            ),
+                                            SizedBox(height: 8),
+                                            Text(
+                                              _locale.addPhoto(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall,
+                                            ),
+                                            ListTile(
+                                              leading: Icon(
+                                                Icons.camera_alt,
+                                                color: Colors.grey[700],
+                                              ),
+                                              title: Text(
+                                                _locale.camera(),
+                                              ),
+                                              onTap: () {
+                                                Navigator.pop(
+                                                    context, 'camera');
+                                              },
+                                            ),
+                                            ListTile(
+                                              leading: Icon(
+                                                Icons.photo,
+                                                color: Colors.grey[700],
+                                              ),
+                                              title: Text(
+                                                _locale.gallery(),
+                                              ),
+                                              onTap: () {
+                                                Navigator.pop(
+                                                    context, 'gallery');
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ) as String?;
+                                  if (chooseAddAttachment != null) {
+                                    if (chooseAddAttachment == 'camera') {
+                                      final pickedImageCamera =
+                                          await ImagePicker().pickImage(
+                                        source: ImageSource.camera,
+                                        imageQuality: 30,
+                                      );
+                                      if (pickedImageCamera != null) {
+                                        listAttachments.removeLast();
+                                        listAttachments
+                                            .add(pickedImageCamera.path);
+                                        listAttachments.add('');
+                                        if (listAttachments.length > 3) {
+                                          listAttachments.removeLast();
+                                        }
+                                        setState(() {});
+                                      }
+                                    } else if (chooseAddAttachment ==
+                                        'gallery') {
+                                      final pickedImageGallery =
+                                          await ImagePicker().pickImage(
+                                        source: ImageSource.gallery,
+                                        imageQuality: 30,
+                                      );
+                                      if (pickedImageGallery != null) {
+                                        listAttachments.removeLast();
+                                        listAttachments
+                                            .add(pickedImageGallery.path);
+                                        listAttachments.add('');
+                                        if (listAttachments.length > 3) {
+                                          listAttachments.removeLast();
+                                        }
+                                        setState(() {});
+                                      }
                                     }
-                                    setState(() {});
                                   }
                                 },
                                 child: Center(

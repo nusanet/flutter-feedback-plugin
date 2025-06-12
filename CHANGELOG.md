@@ -1,6 +1,10 @@
+## 3.6.0
+
+* Add camera option while add image.
+
 ## 3.5.0
 
-* Add parameter `headerWidgets`. This 
+* Add parameter `headerWidgets`.
 
 ## 3.4.3
 

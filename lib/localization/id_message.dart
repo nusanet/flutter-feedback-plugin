@@ -175,4 +175,19 @@ class IdMessage implements LookupMessage {
   String and() {
     return 'dan';
   }
+
+  @override
+  String camera() {
+    return 'Kamera';
+  }
+
+  @override
+  String gallery() {
+    return 'Galeri';
+  }
+
+  @override
+  String addPhoto() {
+    return 'Tambah Gambar';
+  }
 }
