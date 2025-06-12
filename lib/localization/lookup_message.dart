@@ -68,4 +68,10 @@ abstract class LookupMessage {
   String noLogData();
 
   String and();
+
+  String camera();
+
+  String gallery();
+
+  String addPhoto();
 }

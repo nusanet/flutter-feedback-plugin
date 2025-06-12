@@ -18,7 +18,7 @@ class EnMessage implements LookupMessage {
 
   @override
   String deleteScreenshot() {
-    return 'Delete Screenshot';
+    return 'Delete Image';
   }
 
   @override
@@ -28,7 +28,7 @@ class EnMessage implements LookupMessage {
 
   @override
   String editScreenshot() {
-    return 'Edit Screenshot';
+    return 'Edit Image';
   }
 
   @override
@@ -83,7 +83,7 @@ class EnMessage implements LookupMessage {
 
   @override
   String screenshots() {
-    return 'Screenshots';
+    return 'Images';
   }
 
   @override
@@ -118,7 +118,7 @@ class EnMessage implements LookupMessage {
 
   @override
   String viewScreenshot() {
-    return 'View Screenshot';
+    return 'View Image';
   }
 
   @override
@@ -174,5 +174,20 @@ class EnMessage implements LookupMessage {
   @override
   String and() {
     return 'and';
+  }
+
+  @override
+  String camera() {
+    return 'Camera';
+  }
+
+  @override
+  String gallery() {
+    return 'Gallery';
+  }
+
+  @override
+  String addPhoto() {
+    return 'Add Image';
   }
 }
