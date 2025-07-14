@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: coderjava_image_editor_pro
-      sha256: c68d9cbe9538c7f00e965ed8efeec973eadbe507842f96fa5f6b48c8b1ed6da2
+      sha256: "3166a61e37e298bf570d6fd6a634a081faa24c21d3d4dec6167e8d11ba05caf8"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.5"
+    version: "3.1.0"
   collection:
     dependency: transitive
     description:
