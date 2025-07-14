@@ -1,3 +1,7 @@
+## 3.7.0
+
+* Set `defaultPickerColor` to `colorPrimary`.
+
 ## 3.6.0
 
 * Add camera option while add image.
