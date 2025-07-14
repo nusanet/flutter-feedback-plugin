@@ -923,6 +923,7 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
           isShowingBlur: false,
           isShowingFilter: false,
           isShowingEmoji: false,
+          defaultPickerColor: widget.colorPrimary,
         ),
       ),
     ) as File?;
