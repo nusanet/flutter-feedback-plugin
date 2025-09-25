@@ -4,22 +4,25 @@ version: 3.7.0
 repository: https://github.com/nusanet/flutter-feedback-plugin.git
 
 environment:
-  sdk: ">=2.12.0 <4.0.0"
+  sdk: ^3.8.1
   flutter: ">=1.20.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_native_screenshot: ^1.1.1
+  flutter_native_screenshot_plus: ^1.0.0
   path: ^1.8.0
   path_provider: ^2.0.2
-  flutter_image_compress: ^2.1.0
-  coderjava_image_editor_pro: ^3.1.0
+  flutter_image_compress: ^2.4.0
+  coderjava_image_editor_pro: ^3.2.1
   image_picker: ^1.0.4
   dotted_border: ^2.0.0
   font_awesome_flutter: ^10.1.0
-  device_info_plus: ^9.0.2
+  device_info_plus: ^11.3.3
   permission_handler: ^11.0.1
+
+dependency_overrides:
+  archive: ^4.0.7
 
 dev_dependencies:
   flutter_test:

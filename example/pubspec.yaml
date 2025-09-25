@@ -6,7 +6,7 @@ description: Demonstrates how to use the flutter_feedback plugin.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ^3.8.1
 
 dependencies:
   flutter:
@@ -23,6 +23,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+  archive: ^4.0.7
 
 dev_dependencies:
   flutter_test:
