@@ -1,6 +1,10 @@
+## 3.8.1
+
+* Delete dependency_overrides
+
 ## 3.8.0
 
-* Update flutter versi 3.32.8.
+* Update flutter version 3.32.8.
 
 ## 3.7.0
 
