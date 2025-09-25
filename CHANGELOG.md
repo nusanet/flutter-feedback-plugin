@@ -1,3 +1,7 @@
+## 3.8.0
+
+* Update flutter versi 3.32.8.
+
 ## 3.7.0
 
 * Set `defaultPickerColor` to `colorPrimary`.
