@@ -21,9 +21,6 @@ dependencies:
   device_info_plus: ^11.3.3
   permission_handler: ^11.0.1
 
-dependency_overrides:
-  archive: ^4.0.7
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
