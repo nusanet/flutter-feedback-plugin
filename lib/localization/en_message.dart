@@ -7,7 +7,17 @@ class EnMessage implements LookupMessage {
   }
 
   @override
+  String appreciationValue() {
+    return 'Appreciation';
+  }
+
+  @override
   String complain() {
+    return 'Complain';
+  }
+
+  @override
+  String complainValue() {
     return 'Complain';
   }
 
@@ -93,6 +103,11 @@ class EnMessage implements LookupMessage {
 
   @override
   String suggestion() {
+    return 'Suggestion';
+  }
+
+  @override
+  String suggestionValue() {
     return 'Suggestion';
   }
 

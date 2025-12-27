@@ -573,9 +573,9 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    _buildWidgetChoiceChip(_locale.suggestion()),
-                    _buildWidgetChoiceChip(_locale.appreciation()),
-                    _buildWidgetChoiceChip(_locale.complain()),
+                    _buildWidgetChoiceChip(_locale.suggestion(), _locale.suggestionValue()),
+                    _buildWidgetChoiceChip(_locale.appreciation(), _locale.appreciationValue()),
+                    _buildWidgetChoiceChip(_locale.complain(), _locale.complainValue()),
                   ],
                 ),
                 SizedBox(height: 8),
@@ -890,15 +890,17 @@ class _FlutterFeedbackPluginPageState extends State<FlutterFeedbackPluginPage> {
     );
   }
 
-  Widget _buildWidgetChoiceChip(String label) {
-    final isSelected = label == selectedCategory;
+  Widget _buildWidgetChoiceChip(String label, String value) {
+    final isSelected = value == selectedCategory;
     return ChoiceChip(
       label: Text(label),
       labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: isSelected ? widget.colorPrimary : Colors.grey,
           ),
       selected: isSelected,
-      onSelected: (_) => setState(() => selectedCategory = label),
+      onSelected: (_) => setState(() {
+        selectedCategory = value;
+      }),
       backgroundColor: Colors.white,
       selectedColor: Colors.white,
       shape: StadiumBorder(

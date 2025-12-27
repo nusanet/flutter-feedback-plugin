@@ -3,11 +3,21 @@ import 'package:flutter_feedback/localization/lookup_message.dart';
 class IdMessage implements LookupMessage {
   @override
   String appreciation() {
+    return 'Apresiasi';
+  }
+
+  @override
+  String appreciationValue() {
     return 'Pujian';
   }
 
   @override
   String complain() {
+    return 'Keluhan';
+  }
+
+  @override
+  String complainValue() {
     return 'Keluhan';
   }
 
@@ -93,6 +103,11 @@ class IdMessage implements LookupMessage {
 
   @override
   String suggestion() {
+    return 'Saran';
+  }
+
+  @override
+  String suggestionValue() {
     return 'Saran';
   }
 

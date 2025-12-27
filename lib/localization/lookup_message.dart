@@ -9,9 +9,15 @@ abstract class LookupMessage {
 
   String suggestion();
 
+  String suggestionValue();
+
   String appreciation();
 
+  String appreciationValue();
+
   String complain();
+
+  String complainValue();
 
   String pleaseLeaveYourFeedback();
 

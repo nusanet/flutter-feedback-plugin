@@ -63,6 +63,7 @@ class _HomePageState extends State<HomePage> {
                             onSubmitFeedback: (listScreenshots, category,
                                 description, deviceLogs) async {
                               // jika prosesnya berhasil
+                              debugPrint('category: $category');
                               formFeedbackController.submitFeedback();
                               await Future.delayed(Duration(seconds: 3));
                               formFeedbackController.successFeedback(context);
