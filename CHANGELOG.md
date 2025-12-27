@@ -1,6 +1,10 @@
-## 3.8.2
+## 3.8.3
 
 * Pisahkan antara label dan value untuk kategori
+
+## 3.8.2
+
+* Reformat code.
 
 ## 3.8.1
 
