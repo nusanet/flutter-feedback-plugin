@@ -1,3 +1,7 @@
+## 3.8.2
+
+* Pisahkan antara label dan value untuk kategori
+
 ## 3.8.1
 
 * Delete dependency_overrides
