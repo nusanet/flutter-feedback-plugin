@@ -1,6 +1,10 @@
+## 3.8.4
+
+* Update the "feedback" label in Indonesian
+
 ## 3.8.3
 
-* Pisahkan antara label dan value untuk kategori
+* Separate between label and value for category
 
 ## 3.8.2
 
