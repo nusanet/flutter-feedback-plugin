@@ -43,12 +43,12 @@ class IdMessage implements LookupMessage {
 
   @override
   String enterYourFeedback() {
-    return 'Masukkan tanggapanmu ya';
+    return 'Masukkan umpan balikmu ya';
   }
 
   @override
   String feedback() {
-    return 'Berikan Feedback';
+    return 'Berikan Umpan Balik';
   }
 
   @override
@@ -138,7 +138,7 @@ class IdMessage implements LookupMessage {
 
   @override
   String pleaseUploadScreenshot() {
-    return 'Tolong unggah sebuah gambar untuk mendukung feedback kamu.';
+    return 'Tolong unggah sebuah gambar untuk mendukung umpan balik kamu.';
   }
 
   @override
