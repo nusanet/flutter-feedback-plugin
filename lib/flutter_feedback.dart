@@ -42,8 +42,10 @@ class FlutterFeedback {
     if (Platform.isIOS) {
       final permissionStorage = Permission.storage;
       final permissionPhotos = Permission.photos;
-      final permissionResult =
-          await [permissionStorage, permissionPhotos].request();
+      final permissionResult = await [
+        permissionStorage,
+        permissionPhotos,
+      ].request();
       final resultPermissionStorage = permissionResult[permissionStorage];
       final resultPermissionPhotos = permissionResult[permissionPhotos];
       if (resultPermissionStorage == PermissionStatus.granted &&
@@ -134,7 +136,9 @@ class FlutterFeedback {
   /// Dan [StatusScreenshot.path] akan berisi nilai lokasi file gambar screenshot.
   Future<StatusScreenshot?> _doTakeScreenshot(int quality) async {
     try {
-      final fileScreenshot = await FlutterNativeScreenshotPlus().takeScreenshot();
+      await Future.delayed(const Duration(milliseconds: 500));
+      final fileScreenshot = await FlutterNativeScreenshotPlus()
+          .takeScreenshot();
       if (fileScreenshot == null) {
         return StatusScreenshot(Status.fileNotFound);
       }
@@ -142,12 +146,14 @@ class FlutterFeedback {
       final targetPath = path.join(tempDirectory.path, '${DateTime.now()}.jpg');
       final fileScreenshotCompress =
           await FlutterImageCompress.compressAndGetFile(
-        fileScreenshot,
-        targetPath,
-        quality: quality,
+            fileScreenshot,
+            targetPath,
+            quality: quality,
+          );
+      return StatusScreenshot(
+        Status.success,
+        path: fileScreenshotCompress?.path,
       );
-      return StatusScreenshot(Status.success,
-          path: fileScreenshotCompress?.path);
     } on PlatformException catch (error) {
       throw error;
     }
