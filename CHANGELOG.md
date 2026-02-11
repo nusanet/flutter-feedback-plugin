@@ -1,3 +1,7 @@
+## 3.8.6
+
+* Change plugin flutter_native_screenshot_plus to flutter_native_screenshot
+
 ## 3.8.5
 
 * Add delayed while take screenshot
