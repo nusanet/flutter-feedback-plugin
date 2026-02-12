@@ -5,7 +5,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:flutter_native_screenshot_plus/flutter_native_screenshot_plus.dart';
+import 'package:flutter_native_screenshot/flutter_native_screenshot.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -42,8 +42,10 @@ class FlutterFeedback {
     if (Platform.isIOS) {
       final permissionStorage = Permission.storage;
       final permissionPhotos = Permission.photos;
-      final permissionResult =
-          await [permissionStorage, permissionPhotos].request();
+      final permissionResult = await [
+        permissionStorage,
+        permissionPhotos,
+      ].request();
       final resultPermissionStorage = permissionResult[permissionStorage];
       final resultPermissionPhotos = permissionResult[permissionPhotos];
       if (resultPermissionStorage == PermissionStatus.granted &&
@@ -134,7 +136,7 @@ class FlutterFeedback {
   /// Dan [StatusScreenshot.path] akan berisi nilai lokasi file gambar screenshot.
   Future<StatusScreenshot?> _doTakeScreenshot(int quality) async {
     try {
-      final fileScreenshot = await FlutterNativeScreenshotPlus().takeScreenshot();
+      final fileScreenshot = await FlutterNativeScreenshot.takeScreenshot();
       if (fileScreenshot == null) {
         return StatusScreenshot(Status.fileNotFound);
       }
@@ -142,12 +144,14 @@ class FlutterFeedback {
       final targetPath = path.join(tempDirectory.path, '${DateTime.now()}.jpg');
       final fileScreenshotCompress =
           await FlutterImageCompress.compressAndGetFile(
-        fileScreenshot,
-        targetPath,
-        quality: quality,
+            fileScreenshot,
+            targetPath,
+            quality: quality,
+          );
+      return StatusScreenshot(
+        Status.success,
+        path: fileScreenshotCompress?.path,
       );
-      return StatusScreenshot(Status.success,
-          path: fileScreenshotCompress?.path);
     } on PlatformException catch (error) {
       throw error;
     }

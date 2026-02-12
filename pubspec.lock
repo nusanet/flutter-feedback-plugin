@@ -238,14 +238,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.5"
-  flutter_native_screenshot_plus:
+  flutter_native_screenshot:
     dependency: "direct main"
     description:
-      name: flutter_native_screenshot_plus
-      sha256: a1b5af6201126f36f50f0be375351de4008e7ab93e5ac62b2e46c99d326dcec6
+      name: flutter_native_screenshot
+      sha256: c4ba99d7742f7b37000d923b8877d99cfcb0a86d665bfe8d7dfeb90e23ef3ab7
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.2.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

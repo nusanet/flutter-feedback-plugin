@@ -162,7 +162,7 @@ class _WidgetEditDeviceLogsState extends State<WidgetEditDeviceLogs> {
         Checkbox(
           value: isChecked,
           onChanged: onChanged,
-          fillColor: MaterialStateProperty.all(widget.colorPrimary),
+          fillColor: WidgetStateProperty.all(widget.colorPrimary),
           checkColor: Colors.white,
         ),
         Expanded(
